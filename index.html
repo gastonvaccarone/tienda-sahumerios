@@ -1,0 +1,1305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sahumos.aromas</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --orange: #F4956A;
+      --orange-light: #FFE8DA;
+      --orange-pale: #FFF4EE;
+      --orange-dark: #D97B52;
+      --black: #1A1A1A;
+      --white: #FFFFFF;
+      --cream: #FFF8F4;
+      --gray: #888;
+      --gray-light: #F5F5F5;
+      --border: #E8E0DC;
+    }
+
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--cream);
+      color: var(--black);
+      overflow-x: hidden;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+    }
+
+    .header-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 70px;
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--black);
+      text-decoration: none;
+      letter-spacing: 0.01em;
+    }
+
+    .logo span { color: var(--orange); }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+    }
+
+    .ig-link {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+
+    .ig-link:hover { color: var(--orange); }
+
+    .cart-btn {
+      position: relative;
+      background: var(--orange);
+      border: none;
+      color: white;
+      padding: 0.55rem 1.2rem;
+      border-radius: 50px;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      transition: background 0.2s;
+    }
+
+    .cart-btn:hover { background: var(--orange-dark); }
+
+    .cart-count {
+      background: var(--black);
+      color: white;
+      border-radius: 50%;
+      width: 20px;
+      height: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* ===== HERO ===== */
+    .hero {
+      background: linear-gradient(135deg, var(--orange-pale) 0%, var(--orange-light) 100%);
+      padding: 4rem 2rem;
+    }
+
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      gap: 3rem;
+    }
+
+    .hero-logo {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      object-fit: cover;
+      flex-shrink: 0;
+      opacity: 0.6;
+    }
+
+    .hero-text { flex: 1; }
+
+    /* ===== WHATSAPP FLOTANTE ===== */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      z-index: 999;
+      width: 60px;
+      height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+    }
+
+    .wa-float:hover {
+      transform: scale(1.1);
+      box-shadow: 0 6px 28px rgba(37,211,102,0.65);
+    }
+
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5vw, 3.5rem);
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.8rem;
+      line-height: 1.15;
+    }
+
+    .hero h1 span { color: var(--orange); }
+
+    .hero p {
+      font-size: 1.05rem;
+      color: #666;
+      max-width: 420px;
+      margin: 0 0 1.8rem;
+      line-height: 1.6;
+    }
+
+    @media (max-width: 650px) {
+      .hero-inner { flex-direction: column; text-align: center; }
+      .hero-logo { width: 140px; height: 140px; }
+      .hero p { margin: 0 auto 1.8rem; }
+    }
+
+    .hero-whatsapp {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #25D366;
+      color: white;
+      text-decoration: none;
+      padding: 0.7rem 1.6rem;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.2s;
+    }
+
+    .hero-whatsapp:hover { opacity: 0.85; }
+
+    /* ===== CATEGORÍAS ===== */
+    .categories-wrap {
+      background: var(--white);
+      border-bottom: 1px solid var(--border);
+      padding: 0 2rem;
+      overflow-x: auto;
+    }
+
+    .categories {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      gap: 0;
+      white-space: nowrap;
+    }
+
+    .cat-btn {
+      background: none;
+      border: none;
+      border-bottom: 3px solid transparent;
+      padding: 1rem 1.2rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      color: var(--gray);
+      cursor: pointer;
+      transition: all 0.2s;
+      white-space: nowrap;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .cat-btn:hover { color: var(--orange); }
+    .cat-btn.active { color: var(--orange); border-bottom-color: var(--orange); font-weight: 600; }
+
+    /* ===== PRODUCTOS ===== */
+    .shop {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 2.5rem 2rem;
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.6rem;
+      border-bottom: 2px solid var(--orange-light);
+    }
+
+    .section-title span {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 400;
+      color: var(--gray);
+      margin-left: 0.6rem;
+    }
+
+    .product-section { margin-bottom: 3.5rem; }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: box-shadow 0.25s, transform 0.25s;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-3px); }
+
+    .card.out-of-stock { opacity: 0.65; }
+
+    .card-img-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      overflow: hidden;
+      background: var(--orange-pale);
+    }
+
+    .card-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.4s;
+    }
+
+    .card:hover .card-img-wrap img { transform: scale(1.05); }
+
+    .badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .badge-stock { background: #FF4444; color: white; }
+    .badge-consultar { background: var(--black); color: white; }
+
+    .card-body {
+      padding: 1rem;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-category {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--orange);
+      margin-bottom: 0.3rem;
+    }
+
+    .card-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--black);
+      line-height: 1.3;
+      margin-bottom: 0.5rem;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 0.8rem;
+      gap: 0.5rem;
+    }
+
+    .card-price {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--black);
+    }
+
+    .card-price.consultar {
+      font-size: 0.85rem;
+      color: var(--gray);
+      font-weight: 500;
+    }
+
+    .add-btn {
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 50%;
+      width: 36px;
+      height: 36px;
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s, transform 0.1s;
+      flex-shrink: 0;
+    }
+
+    .add-btn:hover { background: var(--orange-dark); }
+    .add-btn:active { transform: scale(0.9); }
+    .add-btn:disabled { background: #CCC; cursor: not-allowed; }
+
+    /* ===== CARRITO ===== */
+    .cart-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 200;
+    }
+
+    .cart-overlay.open { display: block; }
+
+    .cart-panel {
+      position: fixed;
+      top: 0;
+      right: -420px;
+      width: 100%;
+      max-width: 420px;
+      height: 100%;
+      background: var(--white);
+      z-index: 300;
+      display: flex;
+      flex-direction: column;
+      transition: right 0.35s cubic-bezier(.4,0,.2,1);
+      box-shadow: -4px 0 30px rgba(0,0,0,0.15);
+    }
+
+    .cart-panel.open { right: 0; }
+
+    .cart-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.3rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-header h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+    }
+
+    .close-btn {
+      background: none;
+      border: none;
+      font-size: 1.5rem;
+      cursor: pointer;
+      color: var(--gray);
+      line-height: 1;
+      padding: 0.2rem;
+    }
+
+    .close-btn:hover { color: var(--black); }
+
+    .cart-items {
+      flex: 1;
+      overflow-y: auto;
+      padding: 1rem 1.5rem;
+    }
+
+    .cart-empty {
+      text-align: center;
+      color: var(--gray);
+      margin-top: 3rem;
+      font-size: 0.95rem;
+    }
+
+    .cart-empty .empty-icon { font-size: 3rem; margin-bottom: 0.5rem; }
+
+    .cart-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.9rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .cart-item-img {
+      width: 60px;
+      height: 60px;
+      border-radius: 10px;
+      object-fit: cover;
+      background: var(--orange-pale);
+      flex-shrink: 0;
+    }
+
+    .cart-item-info { flex: 1; }
+
+    .cart-item-name {
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 0.2rem;
+    }
+
+    .cart-item-price {
+      font-size: 0.85rem;
+      color: var(--orange);
+      font-weight: 600;
+    }
+
+    .cart-item-qty {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .qty-btn {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: none;
+      cursor: pointer;
+      font-size: 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .qty-btn:hover { background: var(--orange-pale); }
+    .qty-num { font-weight: 600; font-size: 0.9rem; min-width: 20px; text-align: center; }
+
+    .cart-footer {
+      padding: 1.3rem 1.5rem;
+      border-top: 1px solid var(--border);
+      background: var(--cream);
+    }
+
+    .cart-total {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1rem;
+    }
+
+    .cart-total-label { font-size: 0.95rem; color: var(--gray); }
+
+    .cart-total-amount {
+      font-size: 1.4rem;
+      font-weight: 700;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .whatsapp-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.6rem;
+      width: 100%;
+      background: #25D366;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: opacity 0.2s;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .whatsapp-btn:hover { opacity: 0.88; }
+    .whatsapp-btn:disabled { background: #CCC; cursor: not-allowed; }
+
+    .cart-note {
+      font-size: 0.75rem;
+      color: var(--gray);
+      text-align: center;
+      margin-top: 0.7rem;
+    }
+
+    /* ===== FOOTER ===== */
+    footer {
+      background: var(--black);
+      color: #BBB;
+      text-align: center;
+      padding: 2.5rem 2rem;
+    }
+
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 0.8rem;
+    }
+
+    .footer-logo span { color: var(--orange); }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-links a {
+      color: #BBB;
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .footer-links a:hover { color: var(--orange); }
+
+    .footer-copy { font-size: 0.78rem; color: #666; }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 600px) {
+      .header-inner { padding: 0; }
+      .ig-link span { display: none; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
+      .card-name { font-size: 0.9rem; }
+      .cart-panel { max-width: 100%; }
+    }
+
+    /* hidden por categoría */
+    .product-section.hidden { display: none; }
+  </style>
+</head>
+<body>
+
+<!-- ===== HEADER ===== -->
+<header>
+  <div class="header-inner">
+    <a class="logo" href="#">Sahumos<span>.aromas</span></a>
+    <div class="header-right">
+      <a class="ig-link" href="https://www.instagram.com/sahumos.aromas" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>@sahumos.aromas</span>
+      </a>
+      <button class="cart-btn" onclick="toggleCart()">
+        🛒 Carrito
+        <span class="cart-count" id="cartCount">0</span>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- ===== HERO ===== -->
+<section class="hero">
+  <div class="hero-inner">
+    <img class="hero-logo" src="imagenes/logo-sahumos.png" alt="Sahumos Aromas" />
+    <div class="hero-text">
+      <h1>Aromas que<br/><span>transforman</span> tu espacio</h1>
+      <p>Sahumerios, bombas humificadoras, sales y más. Todo lo que necesitás para crear un ambiente especial.</p>
+      <a class="hero-whatsapp" href="https://wa.me/5493412783059" target="_blank">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Escribinos por WhatsApp
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ===== CATEGORÍAS ===== -->
+<div class="categories-wrap">
+  <div class="categories">
+    <button class="cat-btn active" onclick="filterCat('todos', this)">Todos</button>
+    <button class="cat-btn" onclick="filterCat('aromanza', this)">Aromanza</button>
+    <button class="cat-btn" onclick="filterCat('sagrada-madre', this)">Sagrada Madre</button>
+    <button class="cat-btn" onclick="filterCat('bombas', this)">Bombas</button>
+    <button class="cat-btn" onclick="filterCat('sahumate', this)">Sahumate</button>
+    <button class="cat-btn" onclick="filterCat('salhumos', this)">Salhumos</button>
+    <button class="cat-btn" onclick="filterCat('garrapinada', this)">Garrapiñadas</button>
+  </div>
+</div>
+
+<!-- ===== PRODUCTOS ===== -->
+<main class="shop">
+
+  <!-- AROMANZA -->
+  <div class="product-section" data-cat="aromanza">
+    <h2 class="section-title">Sahumerios Aromanza <span>7 productos</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Palo Santo Buena Onda" data-price="2200" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.10.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.10.jpeg" alt="Palo Santo Buena Onda" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Palo Santo Buena Onda</div>
+          <div class="card-footer">
+            <div class="card-price">$2.200</div>
+            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card out-of-stock" data-name="Tibetanos SLIM" data-price="1700" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.10 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.10 (1).jpeg" alt="Tibetanos SLIM" loading="lazy" />
+          <span class="badge badge-stock">Sin stock</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Tibetanos SLIM</div>
+          <div class="card-footer">
+            <div class="card-price">$1.700</div>
+            <button class="add-btn" disabled title="Sin stock">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Tibetano MIX" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg" alt="Tibetano MIX" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Tibetano MIX</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Tibetano Antimosquitos" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (1).jpeg" alt="Tibetano Antimosquitos" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Tibetano Antimosquitos</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Tibetano Variedades" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (2).jpeg" alt="Tibetano Variedades" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Tibetano Variedades</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Sahumerio Maya" data-price="2200" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12.jpeg" alt="Sahumerio Maya" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Sahumerio Maya</div>
+          <div class="card-footer">
+            <div class="card-price">$2.200</div>
+            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card out-of-stock" data-name="Sahumerio 7 Chakras (Aromanza)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg" alt="Sahumerio 7 Chakras" loading="lazy" />
+          <span class="badge badge-stock">Sin stock</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Aromanza</div>
+          <div class="card-name">Sahumerio 7 Chakras</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" disabled title="Sin stock">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAGRADA MADRE SAHUMERIOS -->
+  <div class="product-section" data-cat="sagrada-madre">
+    <h2 class="section-title">Sagrada Madre — Sahumerios <span>12 productos</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Triple Aroma" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (1).jpeg" alt="Triple Aroma" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Triple Aroma</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Botánico" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg" alt="Botánico" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Botánico</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Dúo" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (1).jpeg" alt="Dúo" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Dúo</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Línea Natural" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (2).jpeg" alt="Línea Natural" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Línea Natural</div>
+          <div class="card-footer">
+            <div class="card-price">$2.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Maha Blend" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14.jpeg" alt="Maha Blend" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Maha Blend</div>
+          <div class="card-footer">
+            <div class="card-price">$3.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Elemento" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.17.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.17.jpeg" alt="Elemento" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Elemento</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Línea Palo Santo" data-price="2300" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (1).jpeg" alt="Línea Palo Santo" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Línea Palo Santo</div>
+          <div class="card-footer">
+            <div class="card-price">$2.300</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Línea Hierbas" data-price="0" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg" alt="Línea Hierbas" loading="lazy" />
+          <span class="badge badge-consultar">Consultar</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Línea Hierbas</div>
+          <div class="card-footer">
+            <div class="card-price consultar">Consultar precio</div>
+            <button class="add-btn" disabled>+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Energía Limpia" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg" alt="Energía Limpia" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Energía Limpia</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Gaia" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg" alt="Gaia" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Gaia</div>
+          <div class="card-footer">
+            <div class="card-price">$3.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Triangulares" data-price="1800" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg" alt="Triangulares" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">Triangulares</div>
+          <div class="card-footer">
+            <div class="card-price">$1.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="7 Chakras (Sagrada Madre)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg" alt="7 Chakras" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sagrada Madre</div>
+          <div class="card-name">7 Chakras</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- BOMBAS SAGRADA MADRE -->
+  <div class="product-section" data-cat="bombas">
+    <h2 class="section-title">Bombas Sagrada Madre <span>8 productos</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Herbal XL" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.17 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.17 (1).jpeg" alt="Herbal XL" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Herbal XL</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Carbón 7 Días de Limpieza" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg" alt="Carbón 7 Días de Limpieza" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Carbón 7 Días de Limpieza</div>
+          <div class="card-footer">
+            <div class="card-price">$2.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Premium" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.18.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.18.jpeg" alt="Premium" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Premium</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="7 Días Individual" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.19.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.19.jpeg" alt="7 Días Individual" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">7 Días Individual</div>
+          <div class="card-footer">
+            <div class="card-price">$2.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="7 Chakras (Bomba)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.19 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.19 (1).jpeg" alt="7 Chakras" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">7 Chakras</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Carbón (Bomba)" data-price="0" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg" alt="Carbón" loading="lazy" />
+          <span class="badge badge-consultar">Consultar</span>
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Carbón</div>
+          <div class="card-footer">
+            <div class="card-price consultar">Consultar precio</div>
+            <button class="add-btn" disabled>+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Pastillas Defumación" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.18 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.18 (1).jpeg" alt="Pastillas Defumación" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Pastillas Defumación</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Pirámide Energética" data-price="4000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg" alt="Pirámide Energética" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Bombas</div>
+          <div class="card-name">Pirámide Energética</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SAHUMATE -->
+  <div class="product-section" data-cat="sahumate">
+    <h2 class="section-title">Sahumate <span>2 productos</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Blend Aromático (Sahumate)" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg" alt="Blend Aromático" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sahumate</div>
+          <div class="card-name">Blend Aromático</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Sorbetes Acero Inoxidable" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg" alt="Sorbetes Acero Inoxidable" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Sahumate</div>
+          <div class="card-name">Sorbetes Acero Inoxidable</div>
+          <div class="card-footer">
+            <div class="card-price">$3.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SALHUMOS -->
+  <div class="product-section" data-cat="salhumos">
+    <h2 class="section-title">Salhumos — Sales <span>2 productos</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Sales 3 tubos" data-price="6000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg" alt="Sales 3 tubos" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Salhumos</div>
+          <div class="card-name">Sales 3 tubos</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="card" data-name="Sales unidad" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg" alt="Sales unidad" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Salhumos</div>
+          <div class="card-name">Sales unidad</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- GARRAPIÑADAS -->
+  <div class="product-section" data-cat="garrapinada">
+    <h2 class="section-title">Garrapiñadas <span>1 producto</span></h2>
+    <div class="grid">
+      <div class="card" data-name="Garrapiñada Maní ½kg" data-price="6000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg">
+        <div class="card-img-wrap">
+          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg" alt="Garrapiñada Maní" loading="lazy" />
+        </div>
+        <div class="card-body">
+          <div class="card-category">Garrapiñadas</div>
+          <div class="card-name">Garrapiñada Maní ½kg</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<!-- ===== FOOTER ===== -->
+<footer>
+  <div class="footer-logo">Sahumos<span>.aromas</span></div>
+  <div class="footer-links">
+    <a href="https://www.instagram.com/sahumos.aromas" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      @sahumos.aromas
+    </a>
+    <a href="https://wa.me/5493412783059" target="_blank">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+  <div class="footer-copy">© 2026 Sahumos.aromas — Todos los derechos reservados</div>
+</footer>
+
+<!-- ===== WHATSAPP FLOTANTE ===== -->
+<a class="wa-float" href="https://wa.me/5493412783059" target="_blank" title="Escribinos por WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+</a>
+
+<!-- ===== CARRITO ===== -->
+<div class="cart-overlay" id="cartOverlay" onclick="toggleCart()"></div>
+
+<div class="cart-panel" id="cartPanel">
+  <div class="cart-header">
+    <h2>Tu pedido</h2>
+    <button class="close-btn" onclick="toggleCart()">✕</button>
+  </div>
+
+  <div class="cart-items" id="cartItems">
+    <div class="cart-empty">
+      <div class="empty-icon">🛒</div>
+      <p>Tu carrito está vacío.<br/>¡Agregá productos para empezar!</p>
+    </div>
+  </div>
+
+  <div class="cart-footer">
+    <div class="cart-total">
+      <span class="cart-total-label">Total</span>
+      <span class="cart-total-amount" id="cartTotal">$0</span>
+    </div>
+    <button class="whatsapp-btn" id="whatsappBtn" onclick="sendToWhatsApp()" disabled>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+      Finalizar pedido por WhatsApp
+    </button>
+    <p class="cart-note">Te vamos a contactar para coordinar el pago y la entrega</p>
+  </div>
+</div>
+
+<!-- ===== JAVASCRIPT ===== -->
+<script>
+  const WA_NUMBER = '5493412783059';
+  let cart = [];
+
+  function toggleCart() {
+    const panel = document.getElementById('cartPanel');
+    const overlay = document.getElementById('cartOverlay');
+    panel.classList.toggle('open');
+    overlay.classList.toggle('open');
+  }
+
+  function addToCart(btn) {
+    const card = btn.closest('.card');
+    const name = card.dataset.name;
+    const price = parseInt(card.dataset.price);
+    const img = card.dataset.img;
+
+    const existing = cart.find(i => i.name === name);
+    if (existing) {
+      existing.qty++;
+    } else {
+      cart.push({ name, price, img, qty: 1 });
+    }
+
+    // Animación del botón
+    btn.textContent = '✓';
+    btn.style.background = '#4CAF50';
+    setTimeout(() => {
+      btn.textContent = '+';
+      btn.style.background = '';
+    }, 800);
+
+    updateCart();
+    toggleCart();
+  }
+
+  function changeQty(name, delta) {
+    const item = cart.find(i => i.name === name);
+    if (!item) return;
+    item.qty += delta;
+    if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
+    updateCart();
+  }
+
+  function formatPrice(n) {
+    return '$' + n.toLocaleString('es-AR');
+  }
+
+  function updateCart() {
+    const count = cart.reduce((a, i) => a + i.qty, 0);
+    const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
+
+    document.getElementById('cartCount').textContent = count;
+    document.getElementById('cartTotal').textContent = formatPrice(total);
+
+    const btn = document.getElementById('whatsappBtn');
+    btn.disabled = cart.length === 0;
+
+    const itemsEl = document.getElementById('cartItems');
+    if (cart.length === 0) {
+      itemsEl.innerHTML = `
+        <div class="cart-empty">
+          <div class="empty-icon">🛒</div>
+          <p>Tu carrito está vacío.<br/>¡Agregá productos para empezar!</p>
+        </div>`;
+      return;
+    }
+
+    itemsEl.innerHTML = cart.map(item => `
+      <div class="cart-item">
+        <img class="cart-item-img" src="${item.img}" alt="${item.name}" />
+        <div class="cart-item-info">
+          <div class="cart-item-name">${item.name}</div>
+          <div class="cart-item-price">${formatPrice(item.price)} c/u</div>
+        </div>
+        <div class="cart-item-qty">
+          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
+          <span class="qty-num">${item.qty}</span>
+          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  function sendToWhatsApp() {
+    if (cart.length === 0) return;
+
+    const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
+
+    let msg = '¡Hola! Quiero hacer el siguiente pedido:\n\n';
+    cart.forEach(item => {
+      msg += `• ${item.name} x${item.qty} → ${formatPrice(item.price * item.qty)}\n`;
+    });
+    msg += `\n*Total: ${formatPrice(total)}*\n\n¿Cómo coordinamos el pago y la entrega?`;
+
+    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
+    window.open(url, '_blank');
+  }
+
+  function filterCat(cat, btn) {
+    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+
+    document.querySelectorAll('.product-section').forEach(sec => {
+      if (cat === 'todos' || sec.dataset.cat === cat) {
+        sec.classList.remove('hidden');
+      } else {
+        sec.classList.add('hidden');
+      }
+    });
+  }
+</script>
+
+</body>
+</html>
