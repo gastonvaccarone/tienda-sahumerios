@@ -3,7 +3,16 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Sahumos.aromas</title>
+  <title>Sahumos.aromas — Sahumerios, bombas y mas</title>
+  <meta name="description" content="Sahumerios, bombas humificadoras, sales, velas, difusores y mas. Todo lo que necesitas para crear un ambiente especial. Envios en Rosario y alrededores." />
+  <meta name="keywords" content="sahumerios, bombas, aromanza, sagrada madre, palo santo, rosario, aromas, velas, difusores" />
+  <meta property="og:title" content="Sahumos.aromas — Sahumerios, bombas y mas" />
+  <meta property="og:description" content="Sahumerios, bombas humificadoras, sales, velas y mas. Pedidos por WhatsApp. Envios en Rosario y alrededores." />
+  <meta property="og:image" content="imagenes/logo-sahumos.png" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <link rel="icon" type="image/png" href="imagenes/logo-sahumos.png" />
+  <link rel="apple-touch-icon" href="imagenes/logo-sahumos.png" />
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
   <style>
     :root {
@@ -21,6 +30,12 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--gray); }
+    html { scrollbar-width: thin; scrollbar-color: var(--border) transparent; }
+
     body {
       font-family: 'Inter', sans-serif;
       background-color: var(--cream);
@@ -28,7 +43,6 @@
       overflow-x: hidden;
     }
 
-    /* ===== HEADER ===== */
     header {
       position: sticky;
       top: 0;
@@ -108,7 +122,6 @@
       justify-content: center;
     }
 
-    /* ===== HERO ===== */
     .hero {
       background: linear-gradient(135deg, var(--orange-pale) 0%, var(--orange-light) 100%);
       padding: 4rem 2rem;
@@ -133,7 +146,29 @@
 
     .hero-text { flex: 1; }
 
-    /* ===== WHATSAPP FLOTANTE ===== */
+    .scroll-top {
+      position: fixed;
+      bottom: 28px;
+      left: 28px;
+      z-index: 999;
+      width: 44px;
+      height: 44px;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s, transform 0.2s;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+    }
+
+    .scroll-top.visible { opacity: 1; pointer-events: auto; }
+    .scroll-top:hover { transform: scale(1.1); border-color: var(--orange); color: var(--orange); }
+
     .wa-float {
       position: fixed;
       bottom: 28px;
@@ -151,10 +186,7 @@
       transition: transform 0.2s, box-shadow 0.2s;
     }
 
-    .wa-float:hover {
-      transform: scale(1.1);
-      box-shadow: 0 6px 28px rgba(37,211,102,0.65);
-    }
+    .wa-float:hover { transform: scale(1.1); box-shadow: 0 6px 28px rgba(37,211,102,0.65); }
 
     .hero h1 {
       font-family: 'Playfair Display', serif;
@@ -197,45 +229,444 @@
 
     .hero-whatsapp:hover { opacity: 0.85; }
 
-    /* ===== CATEGORÍAS ===== */
-    .categories-wrap {
+    /* ===== MARQUEE MARCAS ===== */
+    .brands-marquee {
       background: var(--white);
       border-bottom: 1px solid var(--border);
-      padding: 0 2rem;
-      overflow-x: auto;
+      overflow: hidden;
+      padding: 0.75rem 0;
+      position: relative;
     }
 
-    .categories {
-      max-width: 1200px;
-      margin: 0 auto;
+    .brands-marquee::before,
+    .brands-marquee::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 60px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .brands-marquee::before {
+      left: 0;
+      background: linear-gradient(to right, var(--white), transparent);
+    }
+
+    .brands-marquee::after {
+      right: 0;
+      background: linear-gradient(to left, var(--white), transparent);
+    }
+
+    .marquee-track {
       display: flex;
-      gap: 0;
-      white-space: nowrap;
+      align-items: center;
+      gap: 3rem;
+      width: max-content;
+      animation: marquee 25s linear infinite;
     }
 
-    .cat-btn {
-      background: none;
-      border: none;
-      border-bottom: 3px solid transparent;
-      padding: 1rem 1.2rem;
+    .marquee-track:hover { animation-play-state: paused; }
+
+    .marquee-item {
+      font-family: 'Playfair Display', serif;
       font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--gray);
+      white-space: nowrap;
+      letter-spacing: 0.04em;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .marquee-dot {
+      width: 4px;
+      height: 4px;
+      border-radius: 50%;
+      background: var(--orange);
+      opacity: 0.5;
+    }
+
+    @keyframes marquee {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    /* ===== BADGE ARTESANAL ===== */
+    .trust-badge {
+      background: var(--cream);
+      padding: 0.9rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.45rem;
+      font-family: 'Inter', sans-serif;
+      font-size: 0.78rem;
       font-weight: 500;
       color: var(--gray);
-      cursor: pointer;
-      transition: all 0.2s;
-      white-space: nowrap;
+      letter-spacing: 0.02em;
+    }
+
+    .trust-item svg { color: var(--orange); flex-shrink: 0; }
+
+    /* ===== SORT SELECTOR ===== */
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .sort-select {
+      padding: 0.45rem 2rem 0.45rem 0.8rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.82rem;
       font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.01em;
+      color: var(--black);
+      background: var(--white);
+      cursor: pointer;
+      outline: none;
+      appearance: none;
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg width='10' height='6' viewBox='0 0 10 6' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L5 5L9 1' stroke='%23888' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.7rem center;
+      transition: border-color 0.2s;
     }
 
-    .cat-btn:hover { color: var(--orange); }
-    .cat-btn.active { color: var(--orange); border-bottom-color: var(--orange); font-weight: 600; }
+    .sort-select option {
+      font-family: 'Inter', sans-serif;
+      font-size: 0.82rem;
+    }
 
-    /* ===== PRODUCTOS ===== */
-    .shop {
-      max-width: 1200px;
+    .sort-select:focus { border-color: var(--orange); }
+
+    /* ===== LAYOUT PRINCIPAL ===== */
+    .shop-layout {
+      max-width: 1280px;
       margin: 0 auto;
-      padding: 2.5rem 2rem;
+      padding: 2rem;
+      display: flex;
+      gap: 2rem;
+      align-items: flex-start;
     }
+
+    /* ===== SIDEBAR FILTROS ===== */
+    .sidebar {
+      width: 260px;
+      flex-shrink: 0;
+      position: sticky;
+      top: 85px;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      scrollbar-width: thin;
+      scrollbar-color: var(--border) transparent;
+    }
+
+    .sidebar::-webkit-scrollbar { width: 4px; }
+    .sidebar::-webkit-scrollbar-thumb { background: var(--border); border-radius: 2px; }
+
+    .sidebar-section {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 0.8rem;
+      overflow: hidden;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.03);
+    }
+
+    .sidebar-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 1.1rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+
+    .sidebar-header:hover { background: var(--orange-pale); }
+
+    .sidebar-header h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--black);
+      margin: 0;
+    }
+
+    .sidebar-header .arrow {
+      transition: transform 0.3s;
+      color: var(--gray);
+      font-size: 0.65rem;
+    }
+
+    .sidebar-section.collapsed .arrow { transform: rotate(-90deg); }
+    .sidebar-section.collapsed .sidebar-body {
+      max-height: 0;
+      padding-top: 0;
+      padding-bottom: 0;
+      overflow: hidden;
+    }
+
+    .sidebar-body {
+      padding: 0 1.1rem 1rem;
+      transition: max-height 0.3s ease, padding 0.3s ease;
+    }
+
+    .filter-option {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      padding: 0.4rem 0;
+      cursor: pointer;
+      font-size: 0.84rem;
+      color: var(--black);
+      transition: color 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .filter-option:hover { color: var(--orange-dark); }
+
+    /* Custom checkbox minimalista */
+    .filter-option input[type="checkbox"] {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--border);
+      border-radius: 6px;
+      cursor: pointer;
+      flex-shrink: 0;
+      position: relative;
+      transition: all 0.2s ease;
+      background: var(--white);
+    }
+
+    .filter-option input[type="checkbox"]:hover {
+      border-color: var(--orange);
+    }
+
+    .filter-option input[type="checkbox"]:checked {
+      background: var(--orange);
+      border-color: var(--orange);
+    }
+
+    .filter-option input[type="checkbox"]:checked::after {
+      content: '';
+      position: absolute;
+      top: 3px;
+      left: 5.5px;
+      width: 5px;
+      height: 9px;
+      border: solid white;
+      border-width: 0 1.8px 1.8px 0;
+      transform: rotate(40deg);
+    }
+
+    .filter-option .count {
+      margin-left: auto;
+      font-size: 0.72rem;
+      color: var(--gray);
+      background: var(--orange-pale);
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 500;
+    }
+
+    /* Precio */
+    .price-range {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .price-input {
+      width: 100%;
+      padding: 0.55rem 0.5rem;
+      border: 1.5px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      text-align: center;
+      color: var(--black);
+      background: var(--gray-light);
+      transition: all 0.2s;
+    }
+
+    .price-input:focus {
+      border-color: var(--orange);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(244,149,106,0.12);
+    }
+
+    .price-input::placeholder { color: #bbb; }
+
+    .price-range-sep {
+      color: var(--border);
+      font-size: 0.8rem;
+      flex-shrink: 0;
+    }
+
+    .price-labels {
+      display: flex;
+      justify-content: space-between;
+      font-size: 0.7rem;
+      color: #bbb;
+      margin-top: 0.4rem;
+      padding: 0 0.2rem;
+    }
+
+    .btn-clear-filters {
+      width: 100%;
+      padding: 0.7rem;
+      background: transparent;
+      color: var(--gray);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      font-size: 0.8rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: all 0.25s;
+      letter-spacing: 0.02em;
+    }
+
+    .btn-clear-filters:hover {
+      background: var(--orange-pale);
+      border-color: var(--orange-light);
+      color: var(--orange-dark);
+    }
+
+    .active-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .active-filters:empty { display: none; }
+
+    .active-filter-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      background: var(--orange-pale);
+      color: var(--orange-dark);
+      border: 1px solid var(--orange-light);
+      padding: 0.3rem 0.7rem;
+      border-radius: 50px;
+      font-size: 0.73rem;
+      font-weight: 500;
+      letter-spacing: 0.01em;
+    }
+
+    .active-filter-tag button {
+      background: none;
+      border: none;
+      color: var(--orange-dark);
+      cursor: pointer;
+      font-size: 0.85rem;
+      line-height: 1;
+      padding: 0;
+      opacity: 0.6;
+      transition: opacity 0.2s;
+    }
+
+    .active-filter-tag button:hover { opacity: 1; }
+
+    /* Boton filtros mobile */
+    .filter-toggle-mobile {
+      display: none;
+      align-items: center;
+      gap: 0.5rem;
+      background: var(--white);
+      border: 1.5px solid var(--border);
+      border-radius: 12px;
+      padding: 0.65rem 1.1rem;
+      font-size: 0.84rem;
+      font-weight: 500;
+      font-family: 'Inter', sans-serif;
+      color: var(--black);
+      cursor: pointer;
+      margin-bottom: 1rem;
+      transition: all 0.2s;
+    }
+
+    .filter-toggle-mobile:hover {
+      border-color: var(--orange);
+      color: var(--orange-dark);
+      background: var(--orange-pale);
+    }
+
+    .sidebar-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.4);
+      z-index: 199;
+    }
+
+    /* ===== SEARCH ===== */
+    .search-wrap {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .search-wrap input {
+      width: 100%;
+      padding: 0.75rem 1rem 0.75rem 2.8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      font-family: 'Inter', sans-serif;
+      background: var(--white);
+      color: var(--black);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .search-wrap input:focus { border-color: var(--orange); }
+
+    .search-icon {
+      position: absolute;
+      left: 10px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--gray);
+      pointer-events: none;
+    }
+
+    /* ===== SHOP CONTENT ===== */
+    .shop-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .results-count {
+      font-size: 0.82rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .results-count strong { color: var(--black); }
 
     .section-title {
       font-family: 'Playfair Display', serif;
@@ -274,14 +705,13 @@
     }
 
     .card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.1); transform: translateY(-3px); }
-
     .card.out-of-stock { opacity: 0.65; }
 
     .card-img-wrap {
       position: relative;
       aspect-ratio: 1 / 1;
       overflow: hidden;
-      background: var(--orange-pale);
+      background: var(--cream);
     }
 
     .card-img-wrap img {
@@ -334,6 +764,9 @@
       flex: 1;
     }
 
+    .card-stock { font-size: 0.75rem; color: var(--gray); margin-bottom: 0.3rem; }
+    .card-stock.low { color: #E74C3C; font-weight: 600; }
+
     .card-footer {
       display: flex;
       align-items: center;
@@ -342,17 +775,8 @@
       gap: 0.5rem;
     }
 
-    .card-price {
-      font-size: 1.05rem;
-      font-weight: 700;
-      color: var(--black);
-    }
-
-    .card-price.consultar {
-      font-size: 0.85rem;
-      color: var(--gray);
-      font-weight: 500;
-    }
+    .card-price { font-size: 1.05rem; font-weight: 700; color: var(--black); }
+    .card-price.consultar { font-size: 0.85rem; color: var(--gray); font-weight: 500; }
 
     .add-btn {
       background: var(--orange);
@@ -374,7 +798,6 @@
     .add-btn:active { transform: scale(0.9); }
     .add-btn:disabled { background: #CCC; cursor: not-allowed; }
 
-    /* ===== CARRITO ===== */
     .cart-overlay {
       display: none;
       position: fixed;
@@ -461,24 +884,10 @@
     }
 
     .cart-item-info { flex: 1; }
+    .cart-item-name { font-weight: 600; font-size: 0.9rem; margin-bottom: 0.2rem; }
+    .cart-item-price { font-size: 0.85rem; color: var(--orange); font-weight: 600; }
 
-    .cart-item-name {
-      font-weight: 600;
-      font-size: 0.9rem;
-      margin-bottom: 0.2rem;
-    }
-
-    .cart-item-price {
-      font-size: 0.85rem;
-      color: var(--orange);
-      font-weight: 600;
-    }
-
-    .cart-item-qty {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
+    .cart-item-qty { display: flex; align-items: center; gap: 0.5rem; }
 
     .qty-btn {
       width: 28px;
@@ -546,7 +955,6 @@
       margin-top: 0.7rem;
     }
 
-    /* ===== FOOTER ===== */
     footer {
       background: var(--black);
       color: #BBB;
@@ -581,25 +989,372 @@
     }
 
     .footer-links a:hover { color: var(--orange); }
+    .footer-info {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-top: 1rem;
+      letter-spacing: 0.02em;
+    }
 
-    .footer-copy { font-size: 0.78rem; color: #666; }
+    .footer-copy { font-size: 0.78rem; color: #666; margin-top: 0.5rem; }
 
-    /* ===== RESPONSIVE ===== */
+    .info-section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 3rem 2rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+    }
+
+    .info-card {
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .info-icon { margin-bottom: 0.8rem; color: var(--orange); }
+
+    .info-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .info-card p { font-size: 0.88rem; color: var(--gray); line-height: 1.6; }
+
+    @media (max-width: 860px) {
+      .shop-layout { padding: 1rem; }
+      .sidebar {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 300px;
+        max-width: 85vw;
+        height: 100vh;
+        max-height: 100vh;
+        z-index: 200;
+        background: var(--cream);
+        padding: 1rem;
+        border-radius: 0;
+        box-shadow: 4px 0 20px rgba(0,0,0,0.15);
+        overflow-y: auto;
+      }
+      .sidebar.mobile-open { display: block; }
+      .sidebar-overlay.open { display: block; }
+      .filter-toggle-mobile { display: flex; }
+    }
+
     @media (max-width: 600px) {
       .header-inner { padding: 0; }
       .ig-link span { display: none; }
-      .grid { grid-template-columns: repeat(2, 1fr); gap: 1rem; }
-      .card-name { font-size: 0.9rem; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 0.7rem; }
+      .card-name { font-size: 0.85rem; }
+      .card-body { padding: 0.7rem; }
+      .card-category { font-size: 0.65rem; }
+      .card-price { font-size: 0.85rem; }
+      .card-stock { font-size: 0.68rem; }
+      .add-btn { width: 30px; height: 30px; font-size: 1rem; }
       .cart-panel { max-width: 100%; }
+      .hero { padding: 2.5rem 1.5rem; }
+      .hero h1 { font-size: 1.6rem; }
+      .hero p { font-size: 0.85rem; }
+      .section-title { font-size: 1.2rem; }
+      .toolbar { flex-direction: column; align-items: stretch; gap: 0.5rem; }
+      .modal { max-width: 95vw; }
+      .brands-marquee { padding: 0.6rem 0; }
+      .marquee-item { font-size: 0.75rem; }
     }
 
-    /* hidden por categoría */
     .product-section.hidden { display: none; }
+
+    .no-results {
+      display: none;
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--gray);
+    }
+
+    .no-results.visible { display: block; }
+
+    .no-results .no-results-icon { font-size: 3rem; margin-bottom: 0.8rem; }
+
+    .no-results p {
+      font-size: 1rem;
+      line-height: 1.6;
+    }
+
+    .no-results strong { color: var(--black); }
+
+    /* ===== MODAL PRODUCTO ===== */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 500;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s;
+      padding: 1.5rem;
+    }
+
+    .modal-overlay.open { opacity: 1; pointer-events: auto; }
+
+    .modal {
+      background: var(--white);
+      border-radius: 16px;
+      max-width: 420px;
+      width: 100%;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+      transform: translateY(20px);
+      transition: transform 0.3s;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .modal-overlay.open .modal { transform: translateY(0); }
+
+    .modal-img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: contain;
+      transition: opacity 0.25s;
+    }
+
+    .modal-gallery {
+      display: flex;
+      gap: 6px;
+      padding: 8px 10px;
+      overflow-x: auto;
+      background: var(--gray-light);
+      scrollbar-width: none;
+    }
+
+    .modal-gallery::-webkit-scrollbar { display: none; }
+
+    .modal-gallery:empty { display: none; }
+
+    .modal-thumb {
+      width: 52px;
+      height: 52px;
+      border-radius: 8px;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      opacity: 0.5;
+      transition: all 0.2s;
+      flex-shrink: 0;
+    }
+
+    .modal-thumb:hover { opacity: 0.8; }
+
+    .modal-thumb.active {
+      border-color: var(--orange);
+      opacity: 1;
+    }
+
+    .modal-nav {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.85);
+      font-size: 1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+      transition: all 0.2s;
+      z-index: 2;
+      color: var(--black);
+    }
+
+    .modal-nav:hover { background: white; box-shadow: 0 3px 12px rgba(0,0,0,0.2); }
+
+    .modal-nav.prev { left: 10px; }
+    .modal-nav.next { right: 10px; }
+
+    .modal-nav:only-child, .modal-gallery:has(> :only-child) { display: none; }
+
+    .modal-counter {
+      position: absolute;
+      bottom: 10px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0,0,0,0.5);
+      color: white;
+      padding: 2px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 500;
+      z-index: 2;
+    }
+
+    .modal-body { padding: 1.5rem; }
+
+    .modal-cat {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--gray);
+      margin-bottom: 0.3rem;
+    }
+
+    .modal-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-price {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--orange);
+      margin-bottom: 0.6rem;
+    }
+
+    .modal-desc {
+      font-size: 0.88rem;
+      color: #666;
+      line-height: 1.6;
+      margin-bottom: 1rem;
+      padding: 0.8rem;
+      background: var(--orange-pale);
+      border-radius: 8px;
+      border-left: 3px solid var(--orange);
+    }
+
+    .modal-stock {
+      font-size: 0.8rem;
+      color: var(--gray);
+      margin-bottom: 1rem;
+    }
+
+    .modal-stock.low { color: #E74C3C; font-weight: 600; }
+
+    .modal-add {
+      width: 100%;
+      padding: 0.85rem;
+      background: var(--orange);
+      color: white;
+      border: none;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 600;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+
+    .modal-add:hover { background: var(--orange-dark); }
+    .modal-add:disabled { background: var(--gray); cursor: not-allowed; }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.9);
+      font-size: 1.1rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    }
+
+    .modal .modal-img-wrap { position: relative; }
+
+    .modal-img { cursor: zoom-in; }
+
+    /* ===== LIGHTBOX ZOOM ===== */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 600;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+      cursor: zoom-out;
+      -webkit-backdrop-filter: blur(4px);
+      backdrop-filter: blur(4px);
+    }
+
+    .lightbox.open { opacity: 1; pointer-events: auto; }
+
+    .lightbox-img {
+      max-width: 92vw;
+      max-height: 92vh;
+      object-fit: contain;
+      border-radius: 8px;
+      transform: scale(0.9);
+      transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 10px 50px rgba(0,0,0,0.5);
+    }
+
+    .lightbox.open .lightbox-img { transform: scale(1); }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      border: none;
+      background: rgba(255,255,255,0.12);
+      color: rgba(255,255,255,0.8);
+      font-size: 1.3rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.2s;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255,255,255,0.2);
+      color: white;
+    }
+
+    .lightbox-hint {
+      position: absolute;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.4);
+      font-size: 0.75rem;
+      font-family: 'Inter', sans-serif;
+      letter-spacing: 0.03em;
+      pointer-events: none;
+      transition: opacity 0.5s;
+    }
   </style>
 </head>
 <body>
 
-<!-- ===== HEADER ===== -->
 <header>
   <div class="header-inner">
     <a class="logo" href="#">Sahumos<span>.aromas</span></a>
@@ -609,20 +1364,19 @@
         <span>@sahumos.aromas</span>
       </a>
       <button class="cart-btn" onclick="toggleCart()">
-        🛒 Carrito
+        Carrito
         <span class="cart-count" id="cartCount">0</span>
       </button>
     </div>
   </div>
 </header>
 
-<!-- ===== HERO ===== -->
 <section class="hero">
   <div class="hero-inner">
     <img class="hero-logo" src="imagenes/logo-sahumos.png" alt="Sahumos Aromas" />
     <div class="hero-text">
       <h1>Aromas que<br/><span>transforman</span> tu espacio</h1>
-      <p>Sahumerios, bombas humificadoras, sales y más. Todo lo que necesitás para crear un ambiente especial.</p>
+      <p>Sahumerios, bombas humificadoras, sales y mas. Todo lo que necesitas para crear un ambiente especial.</p>
       <a class="hero-whatsapp" href="https://wa.me/5493412783059" target="_blank">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
         Escribinos por WhatsApp
@@ -631,252 +1385,418 @@
   </div>
 </section>
 
-<!-- ===== CATEGORÍAS ===== -->
-<div class="categories-wrap">
-  <div class="categories">
-    <button class="cat-btn active" onclick="filterCat('todos', this)">Todos</button>
-    <button class="cat-btn" onclick="filterCat('aromanza', this)">Aromanza</button>
-    <button class="cat-btn" onclick="filterCat('sagrada-madre', this)">Sagrada Madre</button>
-    <button class="cat-btn" onclick="filterCat('bombas', this)">Bombas</button>
-    <button class="cat-btn" onclick="filterCat('sahumate', this)">Sahumate</button>
-    <button class="cat-btn" onclick="filterCat('salhumos', this)">Salhumos</button>
-    <button class="cat-btn" onclick="filterCat('garrapinada', this)">Garrapiñadas</button>
+<!-- ===== MARQUEE MARCAS ===== -->
+<div class="brands-marquee">
+  <div class="marquee-track" id="marqueeTrack">
+    <span class="marquee-item">Sagrada Madre</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Aromanza</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Tribal Soul</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Satya</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Namaste</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Iluminarte</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Salhumos</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Artesanal</span><span class="marquee-dot"></span>
+    <!-- Duplicado para loop infinito -->
+    <span class="marquee-item">Sagrada Madre</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Aromanza</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Tribal Soul</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Satya</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Namaste</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Iluminarte</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Salhumos</span><span class="marquee-dot"></span>
+    <span class="marquee-item">Artesanal</span><span class="marquee-dot"></span>
   </div>
 </div>
 
-<!-- ===== PRODUCTOS ===== -->
-<main class="shop">
+<!-- ===== BADGE CONFIANZA ===== -->
+<div class="trust-badge">
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+    Compra segura por WhatsApp
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+    Artesanal de Rosario
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+    Envios a todo Rosario
+  </div>
+  <div class="trust-item">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+    Lun a Sab 9 a 18hs
+  </div>
+</div>
 
-  <!-- AROMANZA -->
-  <div class="product-section" data-cat="aromanza">
-    <h2 class="section-title">Sahumerios Aromanza <span>7 productos</span></h2>
-    <div class="grid">
-      <div class="card" data-name="Palo Santo Buena Onda" data-price="2200" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.10.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.10.jpeg" alt="Palo Santo Buena Onda" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Palo Santo Buena Onda</div>
-          <div class="card-footer">
-            <div class="card-price">$2.200</div>
-            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
-          </div>
-        </div>
+<div class="shop-layout">
+
+<!-- ===== SIDEBAR FILTROS ===== -->
+<aside class="sidebar" id="sidebarFilters">
+
+  <!-- Categorias -->
+  <div class="sidebar-section">
+    <div class="sidebar-header" onclick="this.parentElement.classList.toggle('collapsed')">
+      <h3>Categorias</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="sidebar-body" id="filterCats">
+      <label class="filter-option"><input type="checkbox" value="sahumerios" onchange="applyFilters()"> Sahumerios <span class="count" data-cat-count="sahumerios"></span></label>
+      <label class="filter-option"><input type="checkbox" value="bombas" onchange="applyFilters()"> Bombas y Defumacion <span class="count" data-cat-count="bombas"></span></label>
+      <label class="filter-option"><input type="checkbox" value="sahumadores" onchange="applyFilters()"> Sahumadores <span class="count" data-cat-count="sahumadores"></span></label>
+      <label class="filter-option"><input type="checkbox" value="hornitos" onchange="applyFilters()"> Hornitos <span class="count" data-cat-count="hornitos"></span></label>
+      <label class="filter-option"><input type="checkbox" value="portasahumerios" onchange="applyFilters()"> Portasahumerios <span class="count" data-cat-count="portasahumerios"></span></label>
+      <label class="filter-option"><input type="checkbox" value="aromatizadores" onchange="applyFilters()"> Aromatizadores <span class="count" data-cat-count="aromatizadores"></span></label>
+      <label class="filter-option"><input type="checkbox" value="kits" onchange="applyFilters()"> Kits <span class="count" data-cat-count="kits"></span></label>
+      <label class="filter-option"><input type="checkbox" value="llaveros" onchange="applyFilters()"> Llaveros <span class="count" data-cat-count="llaveros"></span></label>
+      <label class="filter-option"><input type="checkbox" value="velas" onchange="applyFilters()"> Velas <span class="count" data-cat-count="velas"></span></label>
+      <label class="filter-option"><input type="checkbox" value="difusores" onchange="applyFilters()"> Difusores <span class="count" data-cat-count="difusores"></span></label>
+      <label class="filter-option"><input type="checkbox" value="lamparas" onchange="applyFilters()"> Lamparas <span class="count" data-cat-count="lamparas"></span></label>
+      <label class="filter-option"><input type="checkbox" value="sales" onchange="applyFilters()"> Sales <span class="count" data-cat-count="sales"></span></label>
+      <label class="filter-option"><input type="checkbox" value="garrapinada" onchange="applyFilters()"> Garrapinada <span class="count" data-cat-count="garrapinada"></span></label>
+    </div>
+  </div>
+
+  <!-- Precio -->
+  <div class="sidebar-section">
+    <div class="sidebar-header" onclick="this.parentElement.classList.toggle('collapsed')">
+      <h3>Precio</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="sidebar-body">
+      <div class="price-range">
+        <input type="number" class="price-input" id="priceMin" placeholder="Min" min="0" oninput="applyFilters()" />
+        <span class="price-range-sep">—</span>
+        <input type="number" class="price-input" id="priceMax" placeholder="Max" min="0" oninput="applyFilters()" />
       </div>
-
-      <div class="card out-of-stock" data-name="Tibetanos SLIM" data-price="1700" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.10 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.10 (1).jpeg" alt="Tibetanos SLIM" loading="lazy" />
-          <span class="badge badge-stock">Sin stock</span>
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Tibetanos SLIM</div>
-          <div class="card-footer">
-            <div class="card-price">$1.700</div>
-            <button class="add-btn" disabled title="Sin stock">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Tibetano MIX" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg" alt="Tibetano MIX" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Tibetano MIX</div>
-          <div class="card-footer">
-            <div class="card-price">$3.000</div>
-            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Tibetano Antimosquitos" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (1).jpeg" alt="Tibetano Antimosquitos" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Tibetano Antimosquitos</div>
-          <div class="card-footer">
-            <div class="card-price">$3.000</div>
-            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Tibetano Variedades" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11 (2).jpeg" alt="Tibetano Variedades" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Tibetano Variedades</div>
-          <div class="card-footer">
-            <div class="card-price">$3.000</div>
-            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Sahumerio Maya" data-price="2200" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12.jpeg" alt="Sahumerio Maya" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Sahumerio Maya</div>
-          <div class="card-footer">
-            <div class="card-price">$2.200</div>
-            <button class="add-btn" onclick="addToCart(this)" title="Agregar al carrito">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card out-of-stock" data-name="Sahumerio 7 Chakras (Aromanza)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg" alt="Sahumerio 7 Chakras" loading="lazy" />
-          <span class="badge badge-stock">Sin stock</span>
-        </div>
-        <div class="card-body">
-          <div class="card-category">Aromanza</div>
-          <div class="card-name">Sahumerio 7 Chakras</div>
-          <div class="card-footer">
-            <div class="card-price">$2.500</div>
-            <button class="add-btn" disabled title="Sin stock">+</button>
-          </div>
-        </div>
+      <div class="price-labels">
+        <span id="priceLabelMin">$0</span>
+        <span id="priceLabelMax"></span>
       </div>
     </div>
   </div>
 
-  <!-- SAGRADA MADRE SAHUMERIOS -->
-  <div class="product-section" data-cat="sagrada-madre">
-    <h2 class="section-title">Sagrada Madre — Sahumerios <span>12 productos</span></h2>
+  <!-- Marcas -->
+  <div class="sidebar-section">
+    <div class="sidebar-header" onclick="this.parentElement.classList.toggle('collapsed')">
+      <h3>Marcas</h3>
+      <span class="arrow">&#9660;</span>
+    </div>
+    <div class="sidebar-body" id="filterBrands">
+      <label class="filter-option"><input type="checkbox" value="Sagrada Madre" onchange="applyFilters()"> Sagrada Madre <span class="count" data-brand-count="Sagrada Madre"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Aromanza" onchange="applyFilters()"> Aromanza <span class="count" data-brand-count="Aromanza"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Iluminarte" onchange="applyFilters()"> Iluminarte <span class="count" data-brand-count="Iluminarte"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Namaste" onchange="applyFilters()"> Namaste <span class="count" data-brand-count="Namaste"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Salhumos" onchange="applyFilters()"> Salhumos <span class="count" data-brand-count="Salhumos"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Satya" onchange="applyFilters()"> Satya <span class="count" data-brand-count="Satya"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Tribal Soul" onchange="applyFilters()"> Tribal Soul <span class="count" data-brand-count="Tribal Soul"></span></label>
+      <label class="filter-option"><input type="checkbox" value="Artesanal" onchange="applyFilters()"> Artesanal <span class="count" data-brand-count="Artesanal"></span></label>
+    </div>
+  </div>
+
+  <button class="btn-clear-filters" onclick="clearAllFilters()">Limpiar filtros</button>
+</aside>
+
+<div class="sidebar-overlay" id="sidebarOverlay" onclick="closeSidebar()"></div>
+
+<!-- ===== CONTENIDO PRINCIPAL ===== -->
+<div class="shop-content">
+
+  <button class="filter-toggle-mobile" onclick="openSidebar()">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="14" y2="12"/><line x1="4" y1="18" x2="10" y2="18"/></svg>
+    Filtros
+  </button>
+
+  <div class="active-filters" id="activeFilters"></div>
+
+  <div class="search-wrap">
+    <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <input type="text" id="searchInput" placeholder="Buscar producto..." oninput="applyFilters()" />
+  </div>
+
+  <div class="toolbar">
+    <div class="results-count" id="resultsCount"></div>
+    <select class="sort-select" id="sortSelect" onchange="sortProducts()">
+      <option value="default">Ordenar por</option>
+      <option value="price-asc">Menor precio</option>
+      <option value="price-desc">Mayor precio</option>
+      <option value="name-asc">A — Z</option>
+      <option value="name-desc">Z — A</option>
+    </select>
+  </div>
+
+<main class="shop" id="shopMain">
+  <div class="loading-products" id="loadingProducts" style="text-align:center;padding:3rem;color:#888;">
+    <div style="font-size:2rem;margin-bottom:0.5rem;">&#128367;</div>
+    <p>Cargando productos...</p>
+  </div>
+</main>
+
+<!-- Productos estaticos como fallback (se reemplazan con datos de Google Sheets) -->
+<template id="fallbackProducts">
+
+  <!-- ===== SAHUMERIOS ===== -->
+  <div class="product-section" data-cat="sahumerios">
+    <h2 class="section-title">Sahumerios <span></span></h2>
     <div class="grid">
-      <div class="card" data-name="Triple Aroma" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (1).jpeg" alt="Triple Aroma" loading="lazy" />
-        </div>
+
+      <div class="card" data-name="Aromanza Tibetanos" data-price="3000" data-brand="Aromanza" data-stock="49" data-img="imagenes/sahumerio_aromanza_1.jpg" data-desc="Variedad de fragancias. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_aromanza_1.jpg" alt="Aromanza Tibetanos" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Triple Aroma</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Aromanza Tibetanos</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Aromanza Palo Santo" data-price="2500" data-brand="Aromanza" data-stock="23" data-img="imagenes/sahumerio_aromanza_3.jpg" data-desc="Variedad de fragancias. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_aromanza_3.jpg" alt="Aromanza Palo Santo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Aromanza Palo Santo</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Botánico" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg" alt="Botánico" loading="lazy" />
-        </div>
+      <div class="card" data-name="Iluminarte" data-price="2500" data-brand="Iluminarte" data-stock="3" data-img="imagenes/sahumerio_iluminarte_1.jpg" data-desc="7 Chakras y 7 Arcangeles. Contiene 7 sobres individuales con 3 sahumerios c/u">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_iluminarte_1.jpg" alt="Iluminarte" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Botánico</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Iluminarte</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Dúo" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (1).jpeg" alt="Dúo" loading="lazy" />
-        </div>
+      <div class="card" data-name="Namaste India" data-price="2500" data-brand="Namaste" data-stock="17" data-img="imagenes/sahumerio_namaste_india_1.jpg" data-desc="Variedad de fragancias. Tipo masala. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_namaste_india_1.jpg" alt="Namaste India" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Dúo</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Namaste India</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Línea Natural" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13 (2).jpeg" alt="Línea Natural" loading="lazy" />
-        </div>
+      <div class="card" data-name="Namaste Terapy" data-price="2500" data-brand="Namaste" data-stock="19" data-img="imagenes/sahumerio_namaste_india_2.jpg" data-desc="7 Chakras, 7 Arcangeles, Yoga y Buda">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_namaste_india_2.jpg" alt="Namaste Terapy" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Línea Natural</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Namaste Terapy</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Gaia / Maha" data-price="3600" data-brand="Sagrada Madre" data-stock="4" data-img="imagenes/sahumerio_sagrada_7.jpg" data-desc="Masala blend de aromas de Sagrada Madre">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_7.jpg" alt="S.M. Gaia / Maha" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Gaia / Maha</div>
+          <div class="card-footer">
+            <div class="card-price">$3.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Elemento" data-price="2600" data-brand="Sagrada Madre" data-stock="10" data-img="imagenes/sahumerio_sagrada_5.jpg" data-desc="1 Elemento para cada signo: Fuego, Aire, Tierra, Agua y Eter que potencia los otros 4">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_5.jpg" alt="S.M. Elemento" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Elemento</div>
           <div class="card-footer">
             <div class="card-price">$2.600</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Maha Blend" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14.jpeg" alt="Maha Blend" loading="lazy" />
-        </div>
+      <div class="card" data-name="S.M. Natural" data-price="2600" data-brand="Sagrada Madre" data-stock="37" data-img="imagenes/sahumerio_sagrada_3.jpg" data-desc="Variedad de fragancias con resinas naturales. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_3.jpg" alt="S.M. Natural" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Maha Blend</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Natural</div>
           <div class="card-footer">
-            <div class="card-price">$3.500</div>
+            <div class="card-price">$2.600</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Elemento" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.17.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.17.jpeg" alt="Elemento" loading="lazy" />
-        </div>
+      <div class="card" data-name="S.M. Energia Limpia" data-price="2600" data-brand="Sagrada Madre" data-stock="8" data-img="imagenes/sahumerio_sagrada_24.jpg" data-desc="Limpieza profunda: Revitalizar, Armonizar, Renacer, Sanar">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_24.jpg" alt="S.M. Energia Limpia" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Elemento</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Energia Limpia</div>
+          <div class="card-footer">
+            <div class="card-price">$2.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Duo" data-price="2500" data-brand="Sagrada Madre" data-stock="4" data-img="imagenes/sahumerio_sagrada_4.jpg" data-desc="Energias combinadas en el mismo momento">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_4.jpg" alt="S.M. Duo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Duo</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Línea Palo Santo" data-price="2300" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (1).jpeg" alt="Línea Palo Santo" loading="lazy" />
-        </div>
+      <div class="card" data-name="S.M. 7 Chakras" data-price="2500" data-brand="Sagrada Madre" data-stock="3" data-img="imagenes/sahumerio_sagrada_21.jpg" data-desc="Relax total">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_21.jpg" alt="S.M. 7 Chakras" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Línea Palo Santo</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. 7 Chakras</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Triangular" data-price="1800" data-brand="Sagrada Madre" data-stock="8" data-img="imagenes/sahumerio_sagrada_8.jpg" data-desc="Variedad de fragancias. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_8.jpg" alt="S.M. Triangular" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Triangular</div>
+          <div class="card-footer">
+            <div class="card-price">$1.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Hierbas" data-price="2200" data-brand="Sagrada Madre" data-stock="12" data-img="imagenes/sahumerio_sagrada_10.jpg" data-desc="Variedad de fragancias con hierbas naturales. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_10.jpg" alt="S.M. Hierbas" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Hierbas</div>
+          <div class="card-footer">
+            <div class="card-price">$2.200</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="S.M. Palo Santo" data-price="2300" data-brand="Sagrada Madre" data-stock="47" data-img="imagenes/sahumerio_sagrada_12.jpg" data-desc="Variedad de fragancias combinadas con palo santo. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_sagrada_12.jpg" alt="S.M. Palo Santo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">S.M. Palo Santo</div>
           <div class="card-footer">
             <div class="card-price">$2.300</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Línea Hierbas" data-price="0" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg" alt="Línea Hierbas" loading="lazy" />
-          <span class="badge badge-consultar">Consultar</span>
-        </div>
+      <div class="card" data-name="Satya Hit" data-price="1500" data-brand="Satya" data-stock="16" data-img="imagenes/sahumerio_satya_1.jpg" data-desc="Fragancias hindu">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_satya_1.jpg" alt="Satya Hit" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Línea Hierbas</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Satya Hit</div>
           <div class="card-footer">
-            <div class="card-price consultar">Consultar precio</div>
-            <button class="add-btn" disabled>+</button>
+            <div class="card-price">$1.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Energía Limpia" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg" alt="Energía Limpia" loading="lazy" />
-        </div>
+      <div class="card" data-name="Tribal Soul Spiritual" data-price="3000" data-brand="Tribal Soul" data-stock="8" data-img="imagenes/sahumerio_tribal_soul_4.jpg" data-desc="Masala de limpieza. Incluye portasahumerio de ceramica">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_tribal_soul_4.jpg" alt="Tribal Soul Spiritual" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Energía Limpia</div>
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Tribal Soul Spiritual</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Tribal Soul" data-price="2500" data-brand="Tribal Soul" data-stock="15" data-img="imagenes/sahumerio_tribal_soul_1.jpg" data-desc="Masala blend de aromas hindu">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_tribal_soul_1.jpg" alt="Tribal Soul" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Tribal Soul</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Tibetano Artesanal" data-price="1800" data-brand="Artesanal" data-stock="10" data-img="imagenes/sahumerios_artesanales_2.jpg" data-desc="Pasta pura sin palillo, fragancia oriental o palo santo">
+        <div class="card-img-wrap"><img src="imagenes/sahumerios_artesanales_2.jpg" alt="Tibetano Artesanal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Tibetano Artesanal</div>
+          <div class="card-footer">
+            <div class="card-price">$1.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Conos Cascada Tribal Soul" data-price="2500" data-brand="Tribal Soul" data-stock="6" data-img="imagenes/sahumerio_tribal_soul_3.jpg" data-desc="Importados: mirra, palo santo, salvia blanca y copal">
+        <div class="card-img-wrap"><img src="imagenes/sahumerio_tribal_soul_3.jpg" alt="Conos Cascada Tribal Soul" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Conos Cascada Tribal Soul</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Dhoop Sticks" data-price="2000" data-brand="Artesanal" data-stock="19" data-img="imagenes/dhoop_sticks_1.jpg" data-desc="Sahumerios en barra (variedad de fragancias). Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/dhoop_sticks_1.jpg" alt="Dhoop Sticks" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Dhoop Sticks</div>
+          <div class="card-footer">
+            <div class="card-price">$2.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumerio en Polvo" data-price="1500" data-brand="Artesanal" data-stock="22" data-img="imagenes/sahumerios_artesanales_7.jpg" data-desc="Variedad de aromas">
+        <div class="card-img-wrap"><img src="imagenes/sahumerios_artesanales_7.jpg" alt="Sahumerio en Polvo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Sahumerio en Polvo</div>
+          <div class="card-footer">
+            <div class="card-price">$1.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Blend en Tubo" data-price="2000" data-brand="Artesanal" data-stock="7" data-img="imagenes/sahumerios_artesanales_3.jpg" data-desc="Mezcla de resinas, flores y hierbas para agregar a tus carbones en limpiezas">
+        <div class="card-img-wrap"><img src="imagenes/sahumerios_artesanales_3.jpg" alt="Blend en Tubo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Blend en Tubo</div>
+          <div class="card-footer">
+            <div class="card-price">$2.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Tripleempaste Artesanal" data-price="1500" data-brand="Artesanal" data-stock="50" data-img="imagenes/sahumerios_artesanales_1.jpg" data-desc="Sahumerios artesanales tripleempaste. Fragancias surtidas">
+        <div class="card-img-wrap"><img src="imagenes/sahumerios_artesanales_1.jpg" alt="Tripleempaste Artesanal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Tripleempaste Artesanal</div>
+          <div class="card-footer">
+            <div class="card-price">$1.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Perlas Aromaticas" data-price="2500" data-brand="Artesanal" data-stock="6" data-img="imagenes/sahumadores_y_hornitos_12.jpg" data-desc="Para aromatizar">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_12.jpg" alt="Perlas Aromaticas" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumerios</div>
+          <div class="card-name">Perlas Aromaticas</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
@@ -884,27 +1804,555 @@
         </div>
       </div>
 
-      <div class="card" data-name="Gaia" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg" alt="Gaia" loading="lazy" />
-        </div>
+    </div>
+  </div>
+
+  <!-- ===== BOMBAS Y DEFUMACION ===== -->
+  <div class="product-section" data-cat="bombas">
+    <h2 class="section-title">Bombas y Defumacion <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Bombas 7 Dias" data-price="2600" data-brand="Sagrada Madre" data-stock="2" data-img="imagenes/bombas_defumacion_1.jpg" data-desc="1 Semana de limpieza profunda">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_1.jpg" alt="Bombas 7 Dias" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Gaia</div>
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bombas 7 Dias</div>
+          <div class="card-footer">
+            <div class="card-price">$2.600</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Bombas Herbal" data-price="1500" data-brand="Sagrada Madre" data-stock="10" data-img="imagenes/bombas_defumacion_8.jpg" data-desc="1 Para cada necesidad - contiene 4 unidades">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_8.jpg" alt="Bombas Herbal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bombas Herbal</div>
+          <div class="card-footer">
+            <div class="card-price">$1.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Bomba Herbal XL" data-price="2500" data-brand="Sagrada Madre" data-stock="5" data-img="imagenes/bombas_defumacion_2.jpg" data-desc="Limpieza profunda (Purificacion / Energia Limpia)">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_2.jpg" alt="Bomba Herbal XL" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bomba Herbal XL</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Piramide Energetica" data-price="4000" data-brand="Sagrada Madre" data-stock="28" data-img="imagenes/bombas_defumacion_17.jpg" data-desc="1 Para cada necesidad - contiene 4 unidades">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_17.jpg" alt="Piramide Energetica" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Piramide Energetica</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Pastillas de Defumacion" data-price="2500" data-brand="Sagrada Madre" data-stock="20" data-img="imagenes/bombas_defumacion_9.jpg" data-desc="1 Para cada necesidad - contiene 4 unidades (Lavanda, Salvia, Ruda, Anis, Palo Santo, Incienso)">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_9.jpg" alt="Pastillas de Defumacion" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Pastillas de Defumacion</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Copita para Defumar" data-price="1000" data-brand="Sagrada Madre" data-stock="25" data-img="imagenes/bombas_defumacion_6.jpg" data-desc="Carbon con resinas listas para usar (mirra, copal, benjui, olibano, palo santo)">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_6.jpg" alt="Copita para Defumar" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Copita para Defumar</div>
+          <div class="card-footer">
+            <div class="card-price">$1.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumo" data-price="2800" data-brand="Sagrada Madre" data-stock="2" data-img="imagenes/bombas_defumacion_13.jpg" data-desc="Variedad Blanco">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_13.jpg" alt="Sahumo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Sahumo</div>
+          <div class="card-footer">
+            <div class="card-price">$2.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumito" data-price="2000" data-brand="Sagrada Madre" data-stock="19" data-img="imagenes/bombas_defumacion_12.jpg" data-desc="Consultar variedad">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_12.jpg" alt="Sahumito" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Sahumito</div>
+          <div class="card-footer">
+            <div class="card-price">$2.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Bomba Carbon" data-price="4000" data-brand="Sagrada Madre" data-stock="16" data-img="imagenes/bombas_defumacion_15.jpg" data-desc="Neutro, Hierbas, limpieza Energetica, 7 poderes, antimosquito, yagra, lavanda, incienso (Caja cerrada)">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_15.jpg" alt="Bomba Carbon" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bomba Carbon</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Bombas Premium" data-price="2500" data-brand="Sagrada Madre" data-stock="13" data-img="imagenes/bombas_defumacion_18.jpg" data-desc="Caja x 8 unidades (purificacion, relajacion, transmutacion, prosperidad, amor, proteccion, paz)">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_18.jpg" alt="Bombas Premium" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bombas Premium</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Bombas 7 Chakras" data-price="2500" data-brand="Sagrada Madre" data-stock="2" data-img="imagenes/bombas_defumacion_21.jpg" data-desc="1 Para cada necesidad">
+        <div class="card-img-wrap"><img src="imagenes/bombas_defumacion_21.jpg" alt="Bombas 7 Chakras" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Bombas y Defumacion</div>
+          <div class="card-name">Bombas 7 Chakras</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== SAHUMADORES ===== -->
+  <div class="product-section" data-cat="sahumadores">
+    <h2 class="section-title">Sahumadores <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Sahumadores Colgantes" data-price="8000" data-brand="Artesanal" data-stock="7" data-img="imagenes/ceramica_negra_3.jpg" data-desc="Ceramica negra artesanal">
+        <div class="card-img-wrap"><img src="imagenes/ceramica_negra_3.jpg" alt="Sahumadores Colgantes" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumadores Colgantes</div>
+          <div class="card-footer">
+            <div class="card-price">$8.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador Mesa c/ Tapa" data-price="6000" data-brand="Artesanal" data-stock="5" data-img="imagenes/ceramica_negra_4.jpg" data-desc="Ceramica negra artesanal con tapa">
+        <div class="card-img-wrap"><img src="imagenes/ceramica_negra_4.jpg" alt="Sahumador Mesa c/ Tapa" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador Mesa c/ Tapa</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador con Asa" data-price="6000" data-brand="Artesanal" data-stock="11" data-img="imagenes/ceramica_negra_5.jpg" data-desc="Ceramica negra artesanal con asa">
+        <div class="card-img-wrap"><img src="imagenes/ceramica_negra_5.jpg" alt="Sahumador con Asa" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador con Asa</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador Honguito" data-price="6000" data-brand="Artesanal" data-stock="7" data-img="imagenes/ceramica_negra_6.jpg" data-desc="Ceramica negra artesanal con tapa">
+        <div class="card-img-wrap"><img src="imagenes/ceramica_negra_6.jpg" alt="Sahumador Honguito" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador Honguito</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Olla + 4 Cazuelas" data-price="70000" data-brand="Artesanal" data-stock="1" data-img="imagenes/ceramica_negra_2.jpg" data-desc="Ceramica negra artesanal. Apto horno, hornalla y microondas (Ultima unidad)">
+        <div class="card-img-wrap"><img src="imagenes/ceramica_negra_2.jpg" alt="Olla + 4 Cazuelas" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Olla + 4 Cazuelas</div>
+          <div class="card-footer">
+            <div class="card-price">$70.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador Metal Cadena" data-price="6000" data-brand="Artesanal" data-stock="1" data-img="imagenes/sahumadores_y_hornitos_2.jpg" data-desc="De metal colgante">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_2.jpg" alt="Sahumador Metal Cadena" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador Metal Cadena</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador Metal con Asa" data-price="4000" data-brand="Artesanal" data-stock="1" data-img="imagenes/sahumadores_y_hornitos_14.jpg" data-desc="De metal transportable">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_14.jpg" alt="Sahumador Metal con Asa" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador Metal con Asa</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador de Concreto" data-price="6500" data-brand="Artesanal" data-stock="9" data-img="imagenes/sahumadores_y_hornitos_7.jpg" data-desc="Concreto artesanal (negro, natural y vison)">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_7.jpg" alt="Sahumador de Concreto" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador de Concreto</div>
+          <div class="card-footer">
+            <div class="card-price">$6.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Sahumador Ceramica Artesanal" data-price="10000" data-brand="Artesanal" data-stock="4" data-img="imagenes/sahumadores_y_hornitos_17.jpg" data-desc="Ceramica color y tostado">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_17.jpg" alt="Sahumador Ceramica Artesanal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Sahumador Ceramica Artesanal</div>
+          <div class="card-footer">
+            <div class="card-price">$10.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Quemador de Palo Santo" data-price="5000" data-brand="Artesanal" data-stock="4" data-img="imagenes/sahumadores_y_hornitos_10.jpg" data-desc="Artesanal. De madera maciza y hierro">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_10.jpg" alt="Quemador de Palo Santo" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Sahumadores</div>
+          <div class="card-name">Quemador de Palo Santo</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== HORNITOS ===== -->
+  <div class="product-section" data-cat="hornitos">
+    <h2 class="section-title">Hornitos <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Horno de Concreto" data-price="10000" data-brand="Artesanal" data-stock="2" data-img="imagenes/sahumadores_y_hornitos_6.jpg" data-desc="Concreto artesanal (negro, natural)">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_6.jpg" alt="Horno de Concreto" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Hornitos</div>
+          <div class="card-name">Horno de Concreto</div>
+          <div class="card-footer">
+            <div class="card-price">$10.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Horno Ceramica Artesanal" data-price="10000" data-brand="Artesanal" data-stock="3" data-img="imagenes/sahumadores_y_hornitos_20.jpg" data-desc="Ceramica artesanal color crema">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_20.jpg" alt="Horno Ceramica Artesanal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Hornitos</div>
+          <div class="card-name">Horno Ceramica Artesanal</div>
+          <div class="card-footer">
+            <div class="card-price">$10.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Horno Ceramica Negra" data-price="5000" data-brand="Artesanal" data-stock="6" data-img="imagenes/sahumadores_y_hornitos_21.jpg" data-desc="Ceramica negra">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_21.jpg" alt="Horno Ceramica Negra" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Hornitos</div>
+          <div class="card-name">Horno Ceramica Negra</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== PORTASAHUMERIOS ===== -->
+  <div class="product-section" data-cat="portasahumerios">
+    <h2 class="section-title">Portasahumerios <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Portasahumerio Ceramica" data-price="5000" data-brand="Artesanal" data-stock="7" data-img="imagenes/portasahumerios_2.jpg" data-desc="Cuadrado o redondo">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_2.jpg" alt="Portasahumerio Ceramica" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Ceramica</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Portasahumerio Concreto" data-price="5800" data-brand="Artesanal" data-stock="9" data-img="imagenes/portasahumerios_4.jpg" data-desc="Concreto artesanal (negro, natural, vison)">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_4.jpg" alt="Portasahumerio Concreto" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Concreto</div>
+          <div class="card-footer">
+            <div class="card-price">$5.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Portasahumerio Pasta Piedra" data-price="7000" data-brand="Artesanal" data-stock="5" data-img="imagenes/portasahumerios_1.jpg" data-desc="Variedad de modelos. Artesanal">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_1.jpg" alt="Portasahumerio Pasta Piedra" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Pasta Piedra</div>
+          <div class="card-footer">
+            <div class="card-price">$7.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Portasahumerio Madera OM" data-price="4000" data-brand="Artesanal" data-stock="7" data-img="imagenes/portasahumerios_8.jpg" data-desc="Madera labrada grueso">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_8.jpg" alt="Portasahumerio Madera OM" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Madera OM</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Portasahumerio Canoa" data-price="25000" data-brand="Artesanal" data-stock="6" data-img="imagenes/portasahumerios_7.jpg" data-desc="Madera labrada fino">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_7.jpg" alt="Portasahumerio Canoa" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Canoa</div>
+          <div class="card-footer">
+            <div class="card-price">$25.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Portasahumerio Metal" data-price="3000" data-brand="Artesanal" data-stock="6" data-img="imagenes/portasahumerios_5.jpg" data-desc="Redondo metal OM / Ganesha">
+        <div class="card-img-wrap"><img src="imagenes/portasahumerios_5.jpg" alt="Portasahumerio Metal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Portasahumerios</div>
+          <div class="card-name">Portasahumerio Metal</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== AROMATIZADORES ===== -->
+  <div class="product-section" data-cat="aromatizadores">
+    <h2 class="section-title">Aromatizadores <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Aromatizador 250ml" data-price="5000" data-brand="Artesanal" data-stock="15" data-img="imagenes/aromatizadores_3.jpg" data-desc="Splash Aromatico (pitanga maracuya, limon, coco vainilla, floral, palo santo, cony)">
+        <div class="card-img-wrap"><img src="imagenes/aromatizadores_3.jpg" alt="Aromatizador 250ml" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Aromatizadores</div>
+          <div class="card-name">Aromatizador 250ml</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Aromatizador 125ml" data-price="3000" data-brand="Artesanal" data-stock="8" data-img="imagenes/aromatizadores_1.jpg" data-desc="Linea Terapy (palo santo, Champa, Sandalo Herbal)">
+        <div class="card-img-wrap"><img src="imagenes/aromatizadores_1.jpg" alt="Aromatizador 125ml" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Aromatizadores</div>
+          <div class="card-name">Aromatizador 125ml</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Esencias para Hornito" data-price="2500" data-brand="Artesanal" data-stock="76" data-img="imagenes/sahumadores_y_hornitos_23.jpg" data-desc="Para aromatizar tus ambientes (Magicos aromas, Iluminarte y Essenze) variedad de fragancias. Consulta fragancias disponibles">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_23.jpg" alt="Esencias para Hornito" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Aromatizadores</div>
+          <div class="card-name">Esencias para Hornito</div>
+          <div class="card-footer">
+            <div class="card-price">$2.500</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== KITS ===== -->
+  <div class="product-section" data-cat="kits">
+    <h2 class="section-title">Kits <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Kit Humitos" data-price="2800" data-brand="Sagrada Madre" data-stock="11" data-img="imagenes/kits_2.jpg" data-desc="Contiene carbones, hierbas y perlas">
+        <div class="card-img-wrap"><img src="imagenes/kits_2.jpg" alt="Kit Humitos" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Kits</div>
+          <div class="card-name">Kit Humitos</div>
+          <div class="card-footer">
+            <div class="card-price">$2.800</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Kit Herbal" data-price="5000" data-brand="Sagrada Madre" data-stock="4" data-img="imagenes/kits_4.jpg" data-desc="Contiene carbones, sahumo y sahumerios">
+        <div class="card-img-wrap"><img src="imagenes/kits_4.jpg" alt="Kit Herbal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Kits</div>
+          <div class="card-name">Kit Herbal</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Kit Amor" data-price="10000" data-brand="Sagrada Madre" data-stock="2" data-img="imagenes/kits_8.jpg" data-desc="Contiene sahumerios, sahumo XXL, bombas y 1 cuarzo rosa como amuleto">
+        <div class="card-img-wrap"><img src="imagenes/kits_8.jpg" alt="Kit Amor" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Kits</div>
+          <div class="card-name">Kit Amor</div>
+          <div class="card-footer">
+            <div class="card-price">$10.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== LLAVEROS ===== -->
+  <div class="product-section" data-cat="llaveros">
+    <h2 class="section-title">Llaveros <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Llavero Macrame Colores" data-price="5000" data-brand="Artesanal" data-stock="17" data-img="imagenes/llaveros_3.jpg" data-desc="De hilo de algodon, varios colores">
+        <div class="card-img-wrap"><img src="imagenes/llaveros_3.jpg" alt="Llavero Macrame Colores" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Llaveros</div>
+          <div class="card-name">Llavero Macrame Colores</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Llavero Macrame Natural" data-price="5000" data-brand="Artesanal" data-stock="7" data-img="imagenes/llaveros_2.jpg" data-desc="De hilo de algodon, color natural">
+        <div class="card-img-wrap"><img src="imagenes/llaveros_2.jpg" alt="Llavero Macrame Natural" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Llaveros</div>
+          <div class="card-name">Llavero Macrame Natural</div>
+          <div class="card-footer">
+            <div class="card-price">$5.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Llavero de Cristal" data-price="6000" data-brand="Artesanal" data-stock="23" data-img="imagenes/llaveros_4.jpg" data-desc="Realizado en vidrio y cristal (consultar variedad)">
+        <div class="card-img-wrap"><img src="imagenes/llaveros_4.jpg" alt="Llavero de Cristal" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Llaveros</div>
+          <div class="card-name">Llavero de Cristal</div>
+          <div class="card-footer">
+            <div class="card-price">$6.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Llavero Vidrio y Acrilico" data-price="4000" data-brand="Artesanal" data-stock="15" data-img="imagenes/atrapasoles_1.jpg" data-desc="Realizado en vidrio y acrilico (consultar variedad)">
+        <div class="card-img-wrap"><img src="imagenes/atrapasoles_1.jpg" alt="Llavero Vidrio y Acrilico" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Llaveros</div>
+          <div class="card-name">Llavero Vidrio y Acrilico</div>
+          <div class="card-footer">
+            <div class="card-price">$4.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===== VELAS ===== -->
+  <div class="product-section" data-cat="velas">
+    <h2 class="section-title">Velas <span></span></h2>
+    <div class="grid">
+
+      <div class="card" data-name="Velas para Hornito" data-price="3500" data-brand="Artesanal" data-stock="17" data-img="imagenes/sahumadores_y_hornitos_11.jpg" data-desc="Blancas o colores surtidos, paquetes x 12">
+        <div class="card-img-wrap"><img src="imagenes/sahumadores_y_hornitos_11.jpg" alt="Velas para Hornito" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Velas</div>
+          <div class="card-name">Velas para Hornito</div>
           <div class="card-footer">
             <div class="card-price">$3.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
-
-      <div class="card" data-name="Triangulares" data-price="1800" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg" alt="Triangulares" loading="lazy" />
-        </div>
+      <div class="card" data-name="Velas de Soja" data-price="0" data-brand="Artesanal" data-stock="0" data-img="imagenes/velas_de_soja_1.jpg" data-desc="Consultar modelos disponibles">
+        <div class="card-img-wrap"><img src="imagenes/velas_de_soja_1.jpg" alt="Velas de Soja" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">Triangulares</div>
+          <div class="card-category">Velas</div>
+          <div class="card-name">Velas de Soja</div>
+          <div class="card-footer">
+            <div class="card-price">Consultar</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Apagavelas" data-price="3000" data-brand="Artesanal" data-stock="13" data-img="imagenes/velas_de_soja_2.jpg" data-desc="Cadena, arandelas y dijes de metal">
+        <div class="card-img-wrap"><img src="imagenes/velas_de_soja_2.jpg" alt="Apagavelas" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Velas</div>
+          <div class="card-name">Apagavelas</div>
+          <div class="card-footer">
+            <div class="card-price">$3.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+      <div class="card" data-name="Vela Ojo Turco" data-price="1800" data-brand="Artesanal" data-stock="14" data-img="imagenes/vela_ojo_turco_1.jpg" data-desc="Para quitar la mala vibra">
+        <div class="card-img-wrap"><img src="imagenes/vela_ojo_turco_1.jpg" alt="Vela Ojo Turco" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Velas</div>
+          <div class="card-name">Vela Ojo Turco</div>
           <div class="card-footer">
             <div class="card-price">$1.800</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
@@ -912,230 +2360,128 @@
         </div>
       </div>
 
-      <div class="card" data-name="7 Chakras (Sagrada Madre)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15.jpeg" alt="7 Chakras" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Sagrada Madre</div>
-          <div class="card-name">7 Chakras</div>
-          <div class="card-footer">
-            <div class="card-price">$2.500</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- BOMBAS SAGRADA MADRE -->
-  <div class="product-section" data-cat="bombas">
-    <h2 class="section-title">Bombas Sagrada Madre <span>8 productos</span></h2>
+  <!-- ===== DIFUSORES ===== -->
+  <div class="product-section" data-cat="difusores">
+    <h2 class="section-title">Difusores <span></span></h2>
     <div class="grid">
-      <div class="card" data-name="Herbal XL" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.17 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.17 (1).jpeg" alt="Herbal XL" loading="lazy" />
-        </div>
+
+      <div class="card" data-name="Difusor para Colgar" data-price="5000" data-brand="Aromanza" data-stock="10" data-img="imagenes/difusor_para_colgar_1.jpg" data-desc="Perfuma tu auto o el placar (mango/maracuya, auto sport, citric, vainilla)">
+        <div class="card-img-wrap"><img src="imagenes/difusor_para_colgar_1.jpg" alt="Difusor para Colgar" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Herbal XL</div>
+          <div class="card-category">Difusores</div>
+          <div class="card-name">Difusor para Colgar</div>
           <div class="card-footer">
-            <div class="card-price">$2.500</div>
+            <div class="card-price">$5.000</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
 
-      <div class="card" data-name="Carbón 7 Días de Limpieza" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg" alt="Carbón 7 Días de Limpieza" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Carbón 7 Días de Limpieza</div>
-          <div class="card-footer">
-            <div class="card-price">$2.600</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Premium" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.18.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.18.jpeg" alt="Premium" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Premium</div>
-          <div class="card-footer">
-            <div class="card-price">$2.500</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="7 Días Individual" data-price="2600" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.19.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.19.jpeg" alt="7 Días Individual" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">7 Días Individual</div>
-          <div class="card-footer">
-            <div class="card-price">$2.600</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="7 Chakras (Bomba)" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.19 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.19 (1).jpeg" alt="7 Chakras" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">7 Chakras</div>
-          <div class="card-footer">
-            <div class="card-price">$2.500</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Carbón (Bomba)" data-price="0" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.13.jpeg" alt="Carbón" loading="lazy" />
-          <span class="badge badge-consultar">Consultar</span>
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Carbón</div>
-          <div class="card-footer">
-            <div class="card-price consultar">Consultar precio</div>
-            <button class="add-btn" disabled>+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Pastillas Defumación" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.18 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.18 (1).jpeg" alt="Pastillas Defumación" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Pastillas Defumación</div>
-          <div class="card-footer">
-            <div class="card-price">$2.500</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
-
-      <div class="card" data-name="Pirámide Energética" data-price="4000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.14 (2).jpeg" alt="Pirámide Energética" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Bombas</div>
-          <div class="card-name">Pirámide Energética</div>
-          <div class="card-footer">
-            <div class="card-price">$4.000</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- SAHUMATE -->
-  <div class="product-section" data-cat="sahumate">
-    <h2 class="section-title">Sahumate <span>2 productos</span></h2>
+  <!-- ===== LAMPARAS ===== -->
+  <div class="product-section" data-cat="lamparas">
+    <h2 class="section-title">Lamparas <span></span></h2>
     <div class="grid">
-      <div class="card" data-name="Blend Aromático (Sahumate)" data-price="3000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.12 (2).jpeg" alt="Blend Aromático" loading="lazy" />
-        </div>
+
+      <div class="card" data-name="Lampara de Sal" data-price="15000" data-brand="Artesanal" data-stock="12" data-img="imagenes/lampara_sal_1.jpg" data-desc="Ceramica artesanal, incluye piedras y kit electrico">
+        <div class="card-img-wrap"><img src="imagenes/lampara_sal_1.jpg" alt="Lampara de Sal" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Sahumate</div>
-          <div class="card-name">Blend Aromático</div>
+          <div class="card-category">Lamparas</div>
+          <div class="card-name">Lampara de Sal</div>
           <div class="card-footer">
-            <div class="card-price">$3.000</div>
+            <div class="card-price">$15.000</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
 
-      <div class="card" data-name="Sorbetes Acero Inoxidable" data-price="3500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.11.jpeg" alt="Sorbetes Acero Inoxidable" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Sahumate</div>
-          <div class="card-name">Sorbetes Acero Inoxidable</div>
-          <div class="card-footer">
-            <div class="card-price">$3.500</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
     </div>
   </div>
 
-  <!-- SALHUMOS -->
-  <div class="product-section" data-cat="salhumos">
-    <h2 class="section-title">Salhumos — Sales <span>2 productos</span></h2>
+  <!-- ===== SALES ===== -->
+  <div class="product-section" data-cat="sales">
+    <h2 class="section-title">Sales <span></span></h2>
     <div class="grid">
-      <div class="card" data-name="Sales 3 tubos" data-price="6000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16.jpeg" alt="Sales 3 tubos" loading="lazy" />
-        </div>
-        <div class="card-body">
-          <div class="card-category">Salhumos</div>
-          <div class="card-name">Sales 3 tubos</div>
-          <div class="card-footer">
-            <div class="card-price">$6.000</div>
-            <button class="add-btn" onclick="addToCart(this)">+</button>
-          </div>
-        </div>
-      </div>
 
-      <div class="card" data-name="Sales unidad" data-price="2500" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.15 (1).jpeg" alt="Sales unidad" loading="lazy" />
-        </div>
+      <div class="card" data-name="Sales Saborizadas" data-price="2500" data-brand="Salhumos" data-stock="51" data-img="imagenes/sales_saborizadas_1.jpg" data-desc="Sales para condimentar. Elaboracion propia. Ahumada, alimonada, finas hierbas, marina, picante, sal rosa">
+        <div class="card-img-wrap"><img src="imagenes/sales_saborizadas_1.jpg" alt="Sales Saborizadas" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Salhumos</div>
-          <div class="card-name">Sales unidad</div>
+          <div class="card-category">Sales</div>
+          <div class="card-name">Sales Saborizadas</div>
           <div class="card-footer">
             <div class="card-price">$2.500</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
-  <!-- GARRAPIÑADAS -->
+  <!-- ===== GARRAPINADA ===== -->
   <div class="product-section" data-cat="garrapinada">
-    <h2 class="section-title">Garrapiñadas <span>1 producto</span></h2>
+    <h2 class="section-title">Garrapinada <span></span></h2>
     <div class="grid">
-      <div class="card" data-name="Garrapiñada Maní ½kg" data-price="6000" data-img="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg">
-        <div class="card-img-wrap">
-          <img src="imagenes/WhatsApp Image 2026-03-29 at 16.39.16 (1).jpeg" alt="Garrapiñada Maní" loading="lazy" />
-        </div>
+
+      <div class="card" data-name="Garrapinada de Mani 1/2 kg" data-price="6000" data-brand="Artesanal" data-stock="6" data-img="imagenes/garrapinada_medio_kg.jpg" data-desc="Mani garrapinado - medio kilo">
+        <div class="card-img-wrap"><img src="imagenes/garrapinada_medio_kg.jpg" alt="Garrapinada de Mani 1/2 kg" loading="lazy" /></div>
         <div class="card-body">
-          <div class="card-category">Garrapiñadas</div>
-          <div class="card-name">Garrapiñada Maní ½kg</div>
+          <div class="card-category">Garrapinada</div>
+          <div class="card-name">Garrapinada de Mani 1/2 kg</div>
           <div class="card-footer">
             <div class="card-price">$6.000</div>
             <button class="add-btn" onclick="addToCart(this)">+</button>
           </div>
         </div>
       </div>
+      <div class="card" data-name="Garrapinada de Mani 1 kg" data-price="10000" data-brand="Artesanal" data-stock="6" data-img="imagenes/garrapinada_1kg.jpg" data-desc="Mani garrapinado - un kilo">
+        <div class="card-img-wrap"><img src="imagenes/garrapinada_1kg.jpg" alt="Garrapinada de Mani 1 kg" loading="lazy" /></div>
+        <div class="card-body">
+          <div class="card-category">Garrapinada</div>
+          <div class="card-name">Garrapinada de Mani 1 kg</div>
+          <div class="card-footer">
+            <div class="card-price">$10.000</div>
+            <button class="add-btn" onclick="addToCart(this)">+</button>
+          </div>
+        </div>
+      </div>
+
     </div>
   </div>
 
-</main>
+  <div class="no-results" id="noResults">
+    <div class="no-results-icon">&#128269;</div>
+    <p>No encontramos productos con ese nombre.<br/>Proba con otra palabra o <strong>escribinos por WhatsApp</strong> para ayudarte.</p>
+  </div>
+
+</template>
+
+</div><!-- /shop-content -->
+</div><!-- /shop-layout -->
+
+<!-- ===== INFO ===== -->
+<section class="info-section">
+  <div class="info-card">
+    <div class="info-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg></div>
+    <h3>Envios</h3>
+    <p>Envios a todo Rosario y alrededores. Retiro en zona norte. Consulta por envios al interior del pais.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg></div>
+    <h3>Pedidos por WhatsApp</h3>
+    <p>Arma tu carrito y envia tu pedido directo por WhatsApp. Lunes a sabados de 9:00 a 18:00hs.</p>
+  </div>
+  <div class="info-card">
+    <div class="info-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
+    <h3>Sobre nosotros</h3>
+    <p>Somos Sahumos.aromas — llevamos aromas, energia y bienestar a tu hogar desde zona norte de Rosario. Venta minorista.</p>
+  </div>
+</section>
 
 <!-- ===== FOOTER ===== -->
 <footer>
@@ -1149,9 +2495,50 @@
       <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
       WhatsApp
     </a>
+    <a href="mailto:sahumos.ros@gmail.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+      sahumos.ros@gmail.com
+    </a>
   </div>
-  <div class="footer-copy">© 2026 Sahumos.aromas — Todos los derechos reservados</div>
+  <div class="footer-info">
+    Zona Norte, Rosario — Lunes a Sabados 9:00 a 18:00hs — Venta minorista
+  </div>
+  <div class="footer-copy">&copy; 2026 Sahumos.aromas — Todos los derechos reservados</div>
 </footer>
+
+<!-- ===== MODAL PRODUCTO ===== -->
+<div class="modal-overlay" id="productModal" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-img-wrap">
+      <button class="modal-close" onclick="document.getElementById('productModal').classList.remove('open')">&#10005;</button>
+      <button class="modal-nav prev" id="modalPrev" onclick="navigateGallery(-1)">&#8249;</button>
+      <img class="modal-img" id="modalImg" src="" alt="" />
+      <button class="modal-nav next" id="modalNext" onclick="navigateGallery(1)">&#8250;</button>
+      <div class="modal-counter" id="modalCounter"></div>
+    </div>
+    <div class="modal-gallery" id="modalGallery"></div>
+    <div class="modal-body">
+      <div class="modal-cat" id="modalCat"></div>
+      <div class="modal-name" id="modalName"></div>
+      <div class="modal-price" id="modalPrice"></div>
+      <div class="modal-desc" id="modalDesc"></div>
+      <div class="modal-stock" id="modalStock"></div>
+      <button class="modal-add" id="modalAddBtn">+ Agregar al carrito</button>
+    </div>
+  </div>
+</div>
+
+<!-- ===== LIGHTBOX ZOOM ===== -->
+<div class="lightbox" id="lightbox" onclick="closeLightbox(event)">
+  <button class="lightbox-close" onclick="closeLightbox(event)">&#10005;</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="" />
+  <div class="lightbox-hint" id="lightboxHint">Toca para cerrar</div>
+</div>
+
+<!-- ===== BOTON SUBIR ===== -->
+<button class="scroll-top" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Volver arriba">
+  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="18 15 12 9 6 15"/></svg>
+</button>
 
 <!-- ===== WHATSAPP FLOTANTE ===== -->
 <a class="wa-float" href="https://wa.me/5493412783059" target="_blank" title="Escribinos por WhatsApp">
@@ -1164,13 +2551,13 @@
 <div class="cart-panel" id="cartPanel">
   <div class="cart-header">
     <h2>Tu pedido</h2>
-    <button class="close-btn" onclick="toggleCart()">✕</button>
+    <button class="close-btn" onclick="toggleCart()">&#10005;</button>
   </div>
 
   <div class="cart-items" id="cartItems">
     <div class="cart-empty">
-      <div class="empty-icon">🛒</div>
-      <p>Tu carrito está vacío.<br/>¡Agregá productos para empezar!</p>
+      <div class="empty-icon">&#128722;</div>
+      <p>Tu carrito esta vacio.<br/>Agrega productos para empezar!</p>
     </div>
   </div>
 
@@ -1190,8 +2577,332 @@
 <!-- ===== JAVASCRIPT ===== -->
 <script>
   const WA_NUMBER = '5493412783059';
-  let cart = [];
+  const SHEET_ID = '1N1n1caMV97ltQkWK3KbBJ4FpXlcUzte-';
+  const SHEET_URL = 'https://docs.google.com/spreadsheets/d/' + SHEET_ID + '/gviz/tq?tqx=out:csv';
 
+  const SECTION_TITLES = {
+    sahumerios: 'Sahumerios', bombas: 'Bombas y Defumacion', sahumadores: 'Sahumadores',
+    hornitos: 'Hornitos', portasahumerios: 'Portasahumerios', aromatizadores: 'Aromatizadores',
+    kits: 'Kits', llaveros: 'Llaveros', velas: 'Velas', difusores: 'Difusores',
+    lamparas: 'Lamparas', sales: 'Sales', garrapinada: 'Garrapinada'
+  };
+
+  const SECTION_ORDER = Object.keys(SECTION_TITLES);
+
+  let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+  // ===== CARGAR PRODUCTOS DESDE GOOGLE SHEETS =====
+  function parseCSV(text) {
+    const rows = [];
+    let current = '';
+    let inQuotes = false;
+    const lines = text.split('\n');
+    for (const line of lines) {
+      if (inQuotes) { current += '\n' + line; }
+      else { current = line; }
+      const quoteCount = (current.match(/"/g) || []).length;
+      inQuotes = quoteCount % 2 !== 0;
+      if (!inQuotes) {
+        const cols = [];
+        let col = '';
+        let q = false;
+        for (let i = 0; i < current.length; i++) {
+          const ch = current[i];
+          if (ch === '"') { q = !q; }
+          else if (ch === ',' && !q) { cols.push(col.trim()); col = ''; }
+          else { col += ch; }
+        }
+        cols.push(col.trim());
+        rows.push(cols);
+        current = '';
+      }
+    }
+    return rows;
+  }
+
+  function cleanPrice(val) {
+    if (!val) return 0;
+    let str = String(val).trim();
+    // Quitar simbolo $ y espacios
+    str = str.replace(/^\$\s*/, '');
+    // Si tiene formato "$10.00" o "$10,00" (con 2 decimales), son centavos — ignorar decimales
+    // Pero en Argentina $10.000 = diez mil (punto es separador de miles)
+    // Detectar: si termina en .00 o ,00 es formato decimal, sacar esos decimales
+    str = str.replace(/[.,]00$/, '');
+    // Ahora quitar separadores de miles (puntos y comas restantes)
+    str = str.replace(/[.,]/g, '');
+    // Quitar cualquier otro caracter no numerico
+    str = str.replace(/[^0-9]/g, '');
+    return parseInt(str) || 0;
+  }
+
+  function cleanStock(val) {
+    if (!val) return 0;
+    return parseInt(String(val).replace(/[^0-9]/g, '')) || 0;
+  }
+
+  async function loadProducts() {
+    try {
+      const resp = await fetch(SHEET_URL);
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      const csv = await resp.text();
+      const rows = parseCSV(csv);
+
+      // Saltar header
+      const products = [];
+      for (let i = 1; i < rows.length; i++) {
+        const r = rows[i];
+        if (r.length < 7 || !r[0] || !r[4]) continue;
+        products.push({
+          nombre: r[0].replace(/^"|"$/g, ''),
+          descripcion: (r[1] || '').replace(/^"|"$/g, ''),
+          precio: cleanPrice(r[2]),
+          stock: cleanStock(r[3]),
+          seccion: (r[4] || '').replace(/^"|"$/g, '').trim().toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''),
+          marca: (r[5] || 'Artesanal').replace(/^"|"$/g, '').trim(),
+          imagen: (r[6] || '').replace(/^"|"$/g, '').trim(),
+        });
+      }
+
+      if (products.length > 0) {
+        renderProducts(products);
+        return;
+      }
+    } catch (e) {
+      console.warn('No se pudo cargar desde Google Sheets, usando datos locales:', e);
+    }
+    // Fallback: usar template estatico
+    useFallback();
+  }
+
+  function useFallback() {
+    const tpl = document.getElementById('fallbackProducts');
+    if (!tpl) return;
+    const shop = document.getElementById('shopMain');
+    shop.innerHTML = tpl.innerHTML;
+    initAfterRender();
+  }
+
+  function renderProducts(products) {
+    // Agrupar por seccion
+    const sections = {};
+    products.forEach(p => {
+      if (!sections[p.seccion]) sections[p.seccion] = [];
+      sections[p.seccion].push(p);
+    });
+
+    const shop = document.getElementById('shopMain');
+    let html = '';
+
+    // Orden definido + secciones nuevas
+    const ordered = SECTION_ORDER.filter(s => sections[s]);
+    const extra = Object.keys(sections).filter(s => !SECTION_ORDER.includes(s));
+
+    for (const sec of [...ordered, ...extra]) {
+      const title = SECTION_TITLES[sec] || sec.charAt(0).toUpperCase() + sec.slice(1);
+      html += '<div class="product-section" data-cat="' + sec + '">';
+      html += '<h2 class="section-title">' + title + ' <span></span></h2>';
+      html += '<div class="grid">';
+      for (const p of sections[sec]) {
+        const priceDisplay = p.precio > 0 ? '$' + p.precio.toLocaleString('es-AR') : 'Consultar';
+        html += '<div class="card" data-name="' + p.nombre + '" data-price="' + p.precio + '" data-brand="' + p.marca + '" data-stock="' + p.stock + '" data-img="' + p.imagen + '" data-desc="' + p.descripcion.replace(/"/g, '&quot;') + '">';
+        html += '<div class="card-img-wrap"><img src="' + p.imagen + '" alt="' + p.nombre + '" loading="lazy" /></div>';
+        html += '<div class="card-body">';
+        html += '<div class="card-category">' + title + '</div>';
+        html += '<div class="card-name">' + p.nombre + '</div>';
+        html += '<div class="card-footer">';
+        html += '<div class="card-price">' + priceDisplay + '</div>';
+        html += '<button class="add-btn" onclick="addToCart(this)">+</button>';
+        html += '</div></div></div>';
+      }
+      html += '</div></div>';
+    }
+
+    html += '<div class="no-results" id="noResults"><div class="no-results-icon">&#128269;</div>';
+    html += '<p>No encontramos productos con ese nombre.<br/>Proba con otra palabra o <strong>escribinos por WhatsApp</strong> para ayudarte.</p></div>';
+
+    shop.innerHTML = html;
+
+    // Actualizar sidebar de categorias
+    updateSidebarCats(sections);
+    // Actualizar sidebar de marcas
+    updateSidebarBrands(products);
+
+    initAfterRender();
+  }
+
+  function updateSidebarCats(sections) {
+    const container = document.getElementById('filterCats');
+    let html = '';
+    const ordered = SECTION_ORDER.filter(s => sections[s]);
+    const extra = Object.keys(sections).filter(s => !SECTION_ORDER.includes(s));
+    for (const cat of [...ordered, ...extra]) {
+      const label = SECTION_TITLES[cat] || cat.charAt(0).toUpperCase() + cat.slice(1);
+      const count = sections[cat].length;
+      html += '<label class="filter-option"><input type="checkbox" value="' + cat + '" onchange="applyFilters()"> ' + label + ' <span class="count" data-cat-count="' + cat + '">' + count + '</span></label>';
+    }
+    container.innerHTML = html;
+  }
+
+  function updateSidebarBrands(products) {
+    const brands = {};
+    products.forEach(p => { brands[p.marca] = (brands[p.marca] || 0) + 1; });
+
+    const sorted = Object.entries(brands).sort((a, b) => {
+      if (a[0] === 'Sagrada Madre') return -1;
+      if (b[0] === 'Sagrada Madre') return 1;
+      if (a[0] === 'Artesanal') return 1;
+      if (b[0] === 'Artesanal') return -1;
+      return a[0].localeCompare(b[0]);
+    });
+
+    const container = document.getElementById('filterBrands');
+    let html = '';
+    for (const [marca, count] of sorted) {
+      html += '<label class="filter-option"><input type="checkbox" value="' + marca + '" onchange="applyFilters()"> ' + marca + ' <span class="count" data-brand-count="' + marca + '">' + count + '</span></label>';
+    }
+    container.innerHTML = html;
+  }
+
+  // ===== INIT DESPUES DE RENDERIZAR =====
+  function initAfterRender() {
+    // Stock dinamico
+    document.querySelectorAll('.card').forEach(card => {
+      const stock = parseInt(card.dataset.stock);
+      if (isNaN(stock)) return;
+      const stockEl = document.createElement('div');
+      stockEl.className = 'card-stock' + (stock <= 3 ? ' low' : '');
+      if (stock === 0) {
+        stockEl.textContent = 'Sin stock';
+        card.classList.add('out-of-stock');
+        const btn = card.querySelector('.add-btn');
+        btn.disabled = true;
+        btn.removeAttribute('onclick');
+        btn.title = 'Sin stock';
+        if (!card.querySelector('.badge-stock')) {
+          const badge = document.createElement('span');
+          badge.className = 'badge badge-stock';
+          badge.textContent = 'Sin stock';
+          card.querySelector('.card-img-wrap').appendChild(badge);
+        }
+      } else if (stock <= 3) {
+        stockEl.textContent = 'Ultimas ' + stock + ' unidades!';
+      } else {
+        stockEl.textContent = 'Stock: ' + stock + ' unidades';
+      }
+      const footer = card.querySelector('.card-footer');
+      footer.parentNode.insertBefore(stockEl, footer);
+    });
+
+    // Contador de productos por seccion
+    document.querySelectorAll('.product-section').forEach(sec => {
+      const count = sec.querySelectorAll('.card').length;
+      const span = sec.querySelector('.section-title span');
+      if (span) span.textContent = count + (count === 1 ? ' producto' : ' productos');
+    });
+
+    // Contadores en sidebar
+    document.querySelectorAll('[data-cat-count]').forEach(span => {
+      const cat = span.dataset.catCount;
+      const sec = document.querySelector('.product-section[data-cat="' + cat + '"]');
+      if (sec) span.textContent = sec.querySelectorAll('.card').length;
+    });
+
+    document.querySelectorAll('[data-brand-count]').forEach(span => {
+      const brand = span.dataset.brandCount;
+      span.textContent = document.querySelectorAll('.card[data-brand="' + brand + '"]').length;
+    });
+
+    // Precio max label
+    const allPrices = Array.from(document.querySelectorAll('.card')).map(c => parseInt(c.dataset.price) || 0).filter(p => p > 0);
+    if (allPrices.length > 0) {
+      document.getElementById('priceLabelMax').textContent = '$' + Math.max(...allPrices).toLocaleString('es-AR');
+    }
+
+    // Results count
+    document.getElementById('resultsCount').textContent = document.querySelectorAll('.card').length + ' productos';
+
+    // Modal
+    initModal();
+
+    if (cart.length > 0) updateCart();
+  }
+
+  // ===== MODAL =====
+  let modalCard = null;
+
+  function initModal() {
+    document.querySelectorAll('.card').forEach(card => {
+      const img = card.querySelector('.card-img-wrap');
+      const name = card.querySelector('.card-name');
+      const openModal = () => {
+        modalCard = card;
+        const modal = document.getElementById('productModal');
+
+        // Solo la imagen del producto
+        document.getElementById('modalImg').src = card.dataset.img;
+
+        // Ocultar galeria y navegacion (1 sola foto por producto)
+        document.getElementById('modalGallery').innerHTML = '';
+        document.getElementById('modalPrev').style.display = 'none';
+        document.getElementById('modalNext').style.display = 'none';
+        document.getElementById('modalCounter').style.display = 'none';
+
+        // Info del producto
+        document.getElementById('modalCat').textContent = card.querySelector('.card-category').textContent;
+        document.getElementById('modalName').textContent = card.dataset.name;
+
+        const price = parseInt(card.dataset.price);
+        document.getElementById('modalPrice').textContent = price > 0 ? formatPrice(price) : 'Consultar precio';
+
+        const desc = card.dataset.desc || '';
+        const descEl = document.getElementById('modalDesc');
+        if (desc) { descEl.textContent = desc; descEl.style.display = ''; }
+        else { descEl.style.display = 'none'; }
+
+        const stock = parseInt(card.dataset.stock);
+        const stockEl = document.getElementById('modalStock');
+        if (isNaN(stock) || stock === 0) {
+          stockEl.textContent = 'Sin stock disponible';
+          stockEl.className = 'modal-stock low';
+        } else if (stock <= 3) {
+          stockEl.textContent = 'Ultimas ' + stock + ' unidades!';
+          stockEl.className = 'modal-stock low';
+        } else {
+          stockEl.textContent = 'Stock disponible: ' + stock + ' unidades';
+          stockEl.className = 'modal-stock';
+        }
+
+        const addBtn = document.getElementById('modalAddBtn');
+        const cardBtn = card.querySelector('.add-btn');
+        if (cardBtn.disabled) { addBtn.disabled = true; addBtn.textContent = 'Sin stock'; }
+        else { addBtn.disabled = false; addBtn.textContent = '+ Agregar al carrito'; }
+        modal.classList.add('open');
+      };
+      img.style.cursor = 'pointer';
+      name.style.cursor = 'pointer';
+      img.addEventListener('click', openModal);
+      name.addEventListener('click', openModal);
+    });
+  }
+
+  document.getElementById('modalAddBtn').addEventListener('click', () => {
+    if (!modalCard) return;
+    const btn = modalCard.querySelector('.add-btn');
+    if (!btn.disabled) {
+      addToCart(btn);
+      document.getElementById('productModal').classList.remove('open');
+    }
+  });
+
+  function closeModal(e) {
+    if (e.target === e.currentTarget) {
+      document.getElementById('productModal').classList.remove('open');
+    }
+  }
+
+
+  // ===== CARRITO =====
   function toggleCart() {
     const panel = document.getElementById('cartPanel');
     const overlay = document.getElementById('cartOverlay');
@@ -1199,26 +2910,39 @@
     overlay.classList.toggle('open');
   }
 
+  function getStock(name) {
+    const card = document.querySelector('.card[data-name="' + CSS.escape(name) + '"]') ||
+                 document.querySelector('.card[data-name="' + name + '"]');
+    return card ? parseInt(card.dataset.stock) || 0 : 0;
+  }
+
+  function getCartQty(name) {
+    const item = cart.find(i => i.name === name);
+    return item ? item.qty : 0;
+  }
+
   function addToCart(btn) {
     const card = btn.closest('.card');
     const name = card.dataset.name;
     const price = parseInt(card.dataset.price);
     const img = card.dataset.img;
+    const stock = parseInt(card.dataset.stock) || 0;
+    const inCart = getCartQty(name);
 
-    const existing = cart.find(i => i.name === name);
-    if (existing) {
-      existing.qty++;
-    } else {
-      cart.push({ name, price, img, qty: 1 });
+    if (inCart >= stock) {
+      btn.textContent = '\u2717';
+      btn.style.background = '#E74C3C';
+      setTimeout(() => { btn.textContent = '+'; btn.style.background = ''; }, 800);
+      return;
     }
 
-    // Animación del botón
-    btn.textContent = '✓';
+    const existing = cart.find(i => i.name === name);
+    if (existing) { existing.qty++; }
+    else { cart.push({ name, price, img, qty: 1 }); }
+
+    btn.textContent = '\u2713';
     btn.style.background = '#4CAF50';
-    setTimeout(() => {
-      btn.textContent = '+';
-      btn.style.background = '';
-    }, 800);
+    setTimeout(() => { btn.textContent = '+'; btn.style.background = ''; }, 800);
 
     updateCart();
     toggleCart();
@@ -1227,6 +2951,8 @@
   function changeQty(name, delta) {
     const item = cart.find(i => i.name === name);
     if (!item) return;
+    const stock = getStock(name);
+    if (delta > 0 && item.qty >= stock) return;
     item.qty += delta;
     if (item.qty <= 0) cart = cart.filter(i => i.name !== name);
     updateCart();
@@ -1237,68 +2963,208 @@
   }
 
   function updateCart() {
+    localStorage.setItem('cart', JSON.stringify(cart));
     const count = cart.reduce((a, i) => a + i.qty, 0);
     const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
 
     document.getElementById('cartCount').textContent = count;
     document.getElementById('cartTotal').textContent = formatPrice(total);
-
-    const btn = document.getElementById('whatsappBtn');
-    btn.disabled = cart.length === 0;
+    document.getElementById('whatsappBtn').disabled = cart.length === 0;
 
     const itemsEl = document.getElementById('cartItems');
     if (cart.length === 0) {
-      itemsEl.innerHTML = `
-        <div class="cart-empty">
-          <div class="empty-icon">🛒</div>
-          <p>Tu carrito está vacío.<br/>¡Agregá productos para empezar!</p>
-        </div>`;
+      itemsEl.innerHTML = '<div class="cart-empty"><div class="empty-icon">&#128722;</div><p>Tu carrito esta vacio.<br/>Agrega productos para empezar!</p></div>';
       return;
     }
 
-    itemsEl.innerHTML = cart.map(item => `
-      <div class="cart-item">
-        <img class="cart-item-img" src="${item.img}" alt="${item.name}" />
-        <div class="cart-item-info">
-          <div class="cart-item-name">${item.name}</div>
-          <div class="cart-item-price">${formatPrice(item.price)} c/u</div>
-        </div>
-        <div class="cart-item-qty">
-          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', -1)">−</button>
-          <span class="qty-num">${item.qty}</span>
-          <button class="qty-btn" onclick="changeQty('${item.name.replace(/'/g, "\\'")}', 1)">+</button>
-        </div>
-      </div>
-    `).join('');
+    itemsEl.innerHTML = cart.map(item => {
+      const escapedName = item.name.replace(/'/g, "\\'");
+      return '<div class="cart-item">' +
+        '<img class="cart-item-img" src="' + item.img + '" alt="' + item.name + '" />' +
+        '<div class="cart-item-info">' +
+          '<div class="cart-item-name">' + item.name + '</div>' +
+          '<div class="cart-item-price">' + formatPrice(item.price) + ' c/u</div>' +
+        '</div>' +
+        '<div class="cart-item-qty">' +
+          '<button class="qty-btn" onclick="changeQty(\'' + escapedName + '\', -1)">\u2212</button>' +
+          '<span class="qty-num">' + item.qty + '</span>' +
+          '<button class="qty-btn" onclick="changeQty(\'' + escapedName + '\', 1)">+</button>' +
+        '</div>' +
+      '</div>';
+    }).join('');
   }
 
   function sendToWhatsApp() {
     if (cart.length === 0) return;
-
     const total = cart.reduce((a, i) => a + i.price * i.qty, 0);
-
-    let msg = '¡Hola! Quiero hacer el siguiente pedido:\n\n';
+    let msg = 'Hola! Quiero hacer el siguiente pedido:\n\n';
     cart.forEach(item => {
-      msg += `• ${item.name} x${item.qty} → ${formatPrice(item.price * item.qty)}\n`;
+      msg += '\u2022 ' + item.name + ' x' + item.qty + ' \u2192 ' + formatPrice(item.price * item.qty) + '\n';
     });
-    msg += `\n*Total: ${formatPrice(total)}*\n\n¿Cómo coordinamos el pago y la entrega?`;
-
-    const url = `https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`;
-    window.open(url, '_blank');
+    msg += '\n*Total: ' + formatPrice(total) + '*\n\nComo coordinamos el pago y la entrega?';
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
   }
 
-  function filterCat(cat, btn) {
-    document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
+  // ===== FILTROS COMBINADOS =====
+  function getSelectedValues(containerId) {
+    const checks = document.querySelectorAll('#' + containerId + ' input[type="checkbox"]:checked');
+    return Array.from(checks).map(c => c.value);
+  }
+
+  function sortProducts() {
+    const sortBy = document.getElementById('sortSelect').value;
+    if (sortBy === 'default') return;
 
     document.querySelectorAll('.product-section').forEach(sec => {
-      if (cat === 'todos' || sec.dataset.cat === cat) {
-        sec.classList.remove('hidden');
-      } else {
-        sec.classList.add('hidden');
-      }
+      const grid = sec.querySelector('.grid');
+      if (!grid) return;
+      const cards = Array.from(grid.querySelectorAll('.card'));
+
+      cards.sort((a, b) => {
+        if (sortBy === 'price-asc') return (parseInt(a.dataset.price) || 0) - (parseInt(b.dataset.price) || 0);
+        if (sortBy === 'price-desc') return (parseInt(b.dataset.price) || 0) - (parseInt(a.dataset.price) || 0);
+        if (sortBy === 'name-asc') return a.dataset.name.localeCompare(b.dataset.name);
+        if (sortBy === 'name-desc') return b.dataset.name.localeCompare(a.dataset.name);
+        return 0;
+      });
+
+      cards.forEach(card => grid.appendChild(card));
     });
   }
+
+  function applyFilters() {
+    const query = (document.getElementById('searchInput').value || '').toLowerCase().trim();
+    const selectedCats = getSelectedValues('filterCats');
+    const selectedBrands = getSelectedValues('filterBrands');
+    const minPrice = parseInt(document.getElementById('priceMin').value) || 0;
+    const maxPrice = parseInt(document.getElementById('priceMax').value) || Infinity;
+
+    let totalVisible = 0;
+
+    document.querySelectorAll('.card').forEach(card => {
+      const name = card.dataset.name.toLowerCase();
+      const desc = (card.dataset.desc || '').toLowerCase();
+      const price = parseInt(card.dataset.price) || 0;
+      const brand = card.dataset.brand || '';
+      const cat = card.closest('.product-section').dataset.cat;
+
+      const matchSearch = !query || name.includes(query) || desc.includes(query);
+      const matchCat = selectedCats.length === 0 || selectedCats.includes(cat);
+      const matchBrand = selectedBrands.length === 0 || selectedBrands.includes(brand);
+      const matchPrice = price >= minPrice && (maxPrice === Infinity || price <= maxPrice);
+
+      const show = matchSearch && matchCat && matchBrand && matchPrice;
+      card.style.display = show ? '' : 'none';
+      if (show) totalVisible++;
+    });
+
+    document.querySelectorAll('.product-section').forEach(sec => {
+      const visible = sec.querySelectorAll('.card:not([style*="display: none"])');
+      sec.style.display = visible.length ? '' : 'none';
+    });
+
+    const allCards = document.querySelectorAll('.card').length;
+    document.getElementById('noResults').classList.toggle('visible', totalVisible === 0);
+    document.getElementById('resultsCount').textContent = totalVisible + ' de ' + allCards + ' productos';
+    updateActiveTags();
+
+    // Scroll a los productos al aplicar filtros
+    const resultsEl = document.getElementById('resultsCount');
+    if (resultsEl) {
+      resultsEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+  }
+
+  function updateActiveTags() {
+    const container = document.getElementById('activeFilters');
+    let html = '';
+    document.querySelectorAll('#filterCats input:checked').forEach(cb => {
+      const label = cb.parentElement.childNodes[1].textContent.trim();
+      html += '<span class="active-filter-tag">' + label + '<button onclick="uncheckFilter(\'filterCats\',\'' + cb.value + '\')">&times;</button></span>';
+    });
+    document.querySelectorAll('#filterBrands input:checked').forEach(cb => {
+      html += '<span class="active-filter-tag">' + cb.value + '<button onclick="uncheckFilter(\'filterBrands\',\'' + cb.value + '\')">&times;</button></span>';
+    });
+    const minP = document.getElementById('priceMin').value;
+    const maxP = document.getElementById('priceMax').value;
+    if (minP || maxP) {
+      const label = (minP ? '$' + parseInt(minP).toLocaleString('es-AR') : '$0') + ' - ' + (maxP ? '$' + parseInt(maxP).toLocaleString('es-AR') : '...');
+      html += '<span class="active-filter-tag">' + label + '<button onclick="clearPrice()">&times;</button></span>';
+    }
+    container.innerHTML = html;
+  }
+
+  function uncheckFilter(containerId, value) {
+    const cb = document.querySelector('#' + containerId + ' input[value="' + value + '"]');
+    if (cb) { cb.checked = false; applyFilters(); }
+  }
+
+  function clearPrice() {
+    document.getElementById('priceMin').value = '';
+    document.getElementById('priceMax').value = '';
+    applyFilters();
+  }
+
+  function clearAllFilters() {
+    document.querySelectorAll('#filterCats input, #filterBrands input').forEach(cb => cb.checked = false);
+    document.getElementById('priceMin').value = '';
+    document.getElementById('priceMax').value = '';
+    document.getElementById('searchInput').value = '';
+    applyFilters();
+  }
+
+  // Mobile sidebar
+  function openSidebar() {
+    document.getElementById('sidebarFilters').classList.add('mobile-open');
+    document.getElementById('sidebarOverlay').classList.add('open');
+  }
+
+  function closeSidebar() {
+    document.getElementById('sidebarFilters').classList.remove('mobile-open');
+    document.getElementById('sidebarOverlay').classList.remove('open');
+  }
+
+  window.addEventListener('scroll', () => {
+    document.getElementById('scrollTopBtn').classList.toggle('visible', window.scrollY > 400);
+  });
+
+  // ===== LIGHTBOX ZOOM =====
+  function openLightbox(src) {
+    const lb = document.getElementById('lightbox');
+    const img = document.getElementById('lightboxImg');
+    img.src = src;
+    lb.classList.add('open');
+    // Ocultar hint despues de 2s
+    const hint = document.getElementById('lightboxHint');
+    hint.style.opacity = '1';
+    setTimeout(() => { hint.style.opacity = '0'; }, 2500);
+  }
+
+  function closeLightbox(e) {
+    if (e.target.classList.contains('lightbox-img')) return;
+    document.getElementById('lightbox').classList.remove('open');
+  }
+
+  // Click en la imagen del modal abre el lightbox
+  document.getElementById('modalImg').addEventListener('click', function(e) {
+    e.stopPropagation();
+    openLightbox(this.src);
+  });
+
+  // ESC cierra lightbox primero, despues modal
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      const lb = document.getElementById('lightbox');
+      if (lb.classList.contains('open')) {
+        lb.classList.remove('open');
+      } else {
+        document.getElementById('productModal').classList.remove('open');
+      }
+    }
+  });
+
+  // ===== ARRANCAR =====
+  loadProducts();
 </script>
 
 </body>
